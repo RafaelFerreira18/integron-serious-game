@@ -1,23 +1,26 @@
 {
   "$GMTileSet":"v1",
-  "%Name":"TileSet5",
+  "%Name":"TileSet9",
   "autoTileSets":[],
   "macroPageTiles":{
     "SerialiseHeight":0,
     "SerialiseWidth":0,
     "TileSerialiseData":[],
   },
-  "name":"TileSet5",
-  "out_columns":0,
-  "out_tilehborder":2,
-  "out_tilevborder":2,
+  "name":"TileSet9",
+  "out_columns":1,
+  "out_tilehborder":0,
+  "out_tilevborder":0,
   "parent":{
     "name":"Rooms",
     "path":"folders/Rooms.yy",
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
-  "spriteId":null,
+  "spriteId":{
+    "name":"Sprite43",
+    "path":"sprites/Sprite43/Sprite43.yy",
+  },
   "spriteNoExport":false,
   "textureGroupId":{
     "name":"Default",
@@ -31,5 +34,5 @@
   "tileWidth":16,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":0,
+  "tile_count":1,
 }
