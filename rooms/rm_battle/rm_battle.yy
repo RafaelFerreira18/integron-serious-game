@@ -6,11 +6,11 @@
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_6877247B","path":"rooms/rm_battle/rm_battle.yy",},
     {"name":"inst_C20DAD8","path":"rooms/rm_battle/rm_battle.yy",},
     {"name":"inst_2AF471EB","path":"rooms/rm_battle/rm_battle.yy",},
     {"name":"inst_376651B8","path":"rooms/rm_battle/rm_battle.yy",},
     {"name":"inst_7B2A94AF","path":"rooms/rm_battle/rm_battle.yy",},
+    {"name":"inst_6877247B","path":"rooms/rm_battle/rm_battle.yy",},
   ],
   "isDnd":false,
   "layers":[

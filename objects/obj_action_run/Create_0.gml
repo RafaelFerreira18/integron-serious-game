@@ -1,3 +1,4 @@
-action = function () {
-	room_goto(obj_battle_switcher.original_room);
+action = function() {
+    var _controller = instance_find(obj_battle_controller, 0);
+    room_goto(_controller.original_room);
 }

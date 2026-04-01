@@ -1,7 +1,4 @@
-if (!instance_exists(obj_battle_switcher)) exit;
 if (is_undefined(integron)) exit;
-
-draw_sprite_ext(integron.sprite, 0, 1030, 380, 4, 4, 0, c_white, 1);
 
 draw_set_font(-1);
 draw_set_color(c_white);

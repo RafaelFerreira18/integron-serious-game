@@ -1,3 +1,18 @@
+if (!inicializado) {
+    var _switcher = instance_find(obj_battle_switcher, 0);
+    show_debug_message("[controller] buscando switcher: " + string(instance_exists(_switcher)));
+    if (!instance_exists(_switcher)) exit;
+    show_debug_message("[controller] integron no switcher: " + string(_switcher.integron));
+    if (is_undefined(_switcher.integron)) exit;
+    
+    integron      = _switcher.integron;
+    original_room = _switcher.original_room;
+    estado        = "batalha";
+    inicializado  = true;
+    show_debug_message("[controller] Integron carregado: " + integron.nome);
+    exit;
+}
+
 if (!overlay_ativo) exit;
 
 if (feedback_timer > 0) {
