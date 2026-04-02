@@ -7,6 +7,42 @@ if (!inicializado) {
     
     integron      = _switcher.integron;
     original_room = _switcher.original_room;
+
+    // Embaralha as opcoes de resposta a cada batalha e atualiza o indice correto.
+    if (is_struct(integron)
+    && variable_struct_exists(integron, "opcoes")
+    && variable_struct_exists(integron, "resposta")) {
+        var _total = array_length(integron.opcoes);
+        if (_total > 1) {
+            var _ordem = array_create(_total, 0);
+            for (var i = 0; i < _total; i++) {
+                _ordem[i] = i;
+            }
+
+            // Fisher-Yates
+            for (var j = _total - 1; j > 0; j--) {
+                var _k = irandom(j);
+                var _tmp = _ordem[j];
+                _ordem[j] = _ordem[_k];
+                _ordem[_k] = _tmp;
+            }
+
+            var _opcoes_embaralhadas = array_create(_total, "");
+            var _resposta_nova = 0;
+
+            for (var n = 0; n < _total; n++) {
+                var _indice_original = _ordem[n];
+                _opcoes_embaralhadas[n] = integron.opcoes[_indice_original];
+                if (_indice_original == integron.resposta) {
+                    _resposta_nova = n;
+                }
+            }
+
+            integron.opcoes = _opcoes_embaralhadas;
+            integron.resposta = _resposta_nova;
+        }
+    }
+
     estado        = "batalha";
     inicializado  = true;
     show_debug_message("[controller] Integron carregado: " + integron.nome);
@@ -28,7 +64,7 @@ if (feedback_timer > 0) {
             room_goto(_room_orig);
         } else {
             // switcher sumiu, volta para o overworld como fallback
-            room_goto(rm_overworld);
+            room_goto(Room1);
         }
     }
     exit;
@@ -53,7 +89,34 @@ for (var i = 0; i < 4; i++) {
 
         if (mouse_check_button_pressed(mb_left)) {
             if (i == integron.resposta) {
-                feedback_texto  = "Correto! " + integron.nome + " foi capturado!";
+                var _nome_integron = "Integron";
+                if (is_struct(integron) && variable_struct_exists(integron, "nome")) {
+                    _nome_integron = string(integron.nome);
+                }
+
+                if (!variable_global_exists("player_party")) {
+                    global.player_party = [];
+                }
+                if (!variable_global_exists("player_party_max")) {
+                    global.player_party_max = 4;
+                }
+
+                if (array_length(global.player_party) < global.player_party_max) {
+                    var _capturado = {
+                        nome: _nome_integron,
+                        sprite: variable_struct_exists(integron, "sprite") ? integron.sprite : noone,
+                        hp: variable_struct_exists(integron, "hp") ? integron.hp : 0,
+                        metodo: variable_struct_exists(integron, "metodo") ? integron.metodo : "",
+                        integral: variable_struct_exists(integron, "integral") ? integron.integral : ""
+                    };
+
+                    var _party_len = array_length(global.player_party);
+                    global.player_party[_party_len] = _capturado;
+
+                    feedback_texto = "Correto! " + _nome_integron + " foi para a party (" + string(array_length(global.player_party)) + "/" + string(global.player_party_max) + ").";
+                } else {
+                    feedback_texto = "Correto! " + _nome_integron + " foi derrotado, mas sua party esta cheia (" + string(global.player_party_max) + ").";
+                }
                 feedback_estado = "acertou";
             } else {
                 feedback_texto  = "Errado! " + integron.nome + " fugiu...";

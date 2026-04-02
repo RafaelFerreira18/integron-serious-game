@@ -1,10 +1,19 @@
 if (is_undefined(integron)) exit;
 
+var _nome_integron = "Integron";
+if (is_struct(integron)) {
+    if (variable_struct_exists(integron, "nome")) {
+        _nome_integron = string(integron.nome);
+    } else if (variable_struct_exists(integron, "name")) {
+        _nome_integron = string(integron.name);
+    }
+}
+
 draw_set_font(-1);
 draw_set_color(c_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
-draw_text(4,  4, integron.nome);
+draw_text(4,  4, _nome_integron);
 draw_text(4, 16, "Metodo: " + integron.metodo);
 
 if (overlay_ativo) {
@@ -18,7 +27,7 @@ if (overlay_ativo) {
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
     draw_set_font(-1);
-    draw_text(640,  60, "Capture " + integron.nome + "!");
+    draw_text(640,  60, "Capture " + _nome_integron + "!");
     draw_text(640, 110, integron.integral);
 
     var _larg = 400;
