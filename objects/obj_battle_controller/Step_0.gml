@@ -51,6 +51,94 @@ if (!inicializado) {
 
 if (!overlay_ativo) exit;
 
+// ===== ANIMACAO DE CAPTURA =====
+if (captura_ativo) {
+    captura_timer++;
+
+    switch (captura_fase) {
+
+        case "voando":
+            // Bola voa em arco do jogador ate o inimigo
+            var _t = captura_timer / 50;
+            if (_t > 1) _t = 1;
+            cap_bola_x = lerp(248, 1028, _t);
+            cap_bola_y = lerp(480, 280, _t) - sin(_t * pi) * 200;
+            cap_bola_rot = (cap_bola_rot + 14) mod 360;
+            if (captura_timer >= 50) {
+                cap_bola_x   = 1028;
+                cap_bola_y   = 280;
+                captura_fase = "absorvendo";
+                captura_timer = 0;
+            }
+        break;
+
+        case "absorvendo":
+            // Inimigo pisca e encolhe para dentro da bola
+            var _t = captura_timer / 40;
+            if (_t > 1) _t = 1;
+            if ((captura_timer mod 6) < 3) {
+                cap_inimigo_alpha = 1 - _t;
+            } else {
+                cap_inimigo_alpha = 0;
+            }
+            cap_inimigo_scale = 1 - _t;
+            cap_bola_rot      = (cap_bola_rot + 8) mod 360;
+            if (captura_timer >= 40) {
+                cap_inimigo_alpha = 0;
+                cap_inimigo_scale = 0;
+                captura_fase      = "caindo";
+                captura_timer     = 0;
+            }
+        break;
+
+        case "caindo":
+            // Bola cai ao chao com gravidade
+            var _t = captura_timer / 25;
+            cap_bola_y   = 280 + _t * _t * 200;
+            cap_bola_rot = (cap_bola_rot + 10) mod 360;
+            if (captura_timer >= 25) {
+                cap_bola_y   = 480;
+                cap_bola_rot = 0;
+                captura_fase  = "balancando";
+                captura_timer = 0;
+            }
+        break;
+
+        case "balancando":
+            // 3 balancadas (wobble) de 30 quadros cada
+            cap_bola_rot = sin((captura_timer / 30) * pi * 2) * 22;
+            if (captura_timer >= 90) {
+                cap_bola_rot = 0;
+                // Criar particulas de estrela
+                cap_estrelas = [];
+                for (var _s = 0; _s < 8; _s++) {
+                    cap_estrelas[_s] = {
+                        angle : (_s / 8) * 360,
+                        dist  : 0,
+                        spd   : 2.5 + random(1.5)
+                    };
+                }
+                captura_fase  = "capturado";
+                captura_timer = 0;
+            }
+        break;
+
+        case "capturado":
+            // Partículas se expandem
+            for (var _s = 0; _s < array_length(cap_estrelas); _s++) {
+                cap_estrelas[_s].dist += cap_estrelas[_s].spd;
+            }
+            if (captura_timer >= 80) {
+                // Animacao terminou — inicia contagem para voltar ao mapa
+                captura_ativo = false;
+                captura_fase  = "fim";
+                feedback_timer = 90;
+            }
+        break;
+    }
+    exit;  // bloqueia interacao de botoes durante a animacao
+}
+
 if (feedback_timer > 0) {
     feedback_timer--;
 
@@ -113,16 +201,26 @@ for (var i = 0; i < 4; i++) {
                     var _party_len = array_length(global.player_party);
                     global.player_party[_party_len] = _capturado;
 
-                    feedback_texto = "Correto! " + _nome_integron + " foi para a party (" + string(array_length(global.player_party)) + "/" + string(global.player_party_max) + ").";
+                    feedback_texto = _nome_integron + " foi para a party! (" + string(array_length(global.player_party)) + "/" + string(global.player_party_max) + ")";
                 } else {
-                    feedback_texto = "Correto! " + _nome_integron + " foi derrotado, mas sua party esta cheia (" + string(global.player_party_max) + ").";
+                    feedback_texto = _nome_integron + " foi derrotado... party cheia (" + string(global.player_party_max) + ")";
                 }
                 feedback_estado = "acertou";
+                // Dispara animacao de captura
+                captura_ativo     = true;
+                captura_fase      = "voando";
+                captura_timer     = 0;
+                cap_bola_x        = 248;
+                cap_bola_y        = 480;
+                cap_bola_rot      = 0;
+                cap_inimigo_alpha = 1;
+                cap_inimigo_scale = 1;
+                // feedback_timer sera setado ao fim da animacao
             } else {
                 feedback_texto  = "Errado! " + integron.nome + " fugiu...";
                 feedback_estado = "errou";
+                feedback_timer  = 180;
             }
-            feedback_timer = 180;
         }
         break;
     }

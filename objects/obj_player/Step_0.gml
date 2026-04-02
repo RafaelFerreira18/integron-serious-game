@@ -25,7 +25,97 @@ if (_mov_y != 0 && (place_meeting(x, y + _mov_y, Object16) || place_meeting(x, y
     _mov_y = 0;
 }
 
-move_and_collide(_mov_x, _mov_y, tilemap);
+// Colisao manual com tilemap (eixo a eixo para evitar ficar preso)
+if (tilemap != -1) {
+    // Eixo X
+    if (_mov_x != 0) {
+        var _bbox_l = bbox_left - x;
+        var _bbox_r = bbox_right - x;
+        var _bbox_t = bbox_top - y;
+        var _bbox_b = bbox_bottom - y;
+        
+        var _check_x = (_mov_x > 0) ? (x + _bbox_r + _mov_x) : (x + _bbox_l + _mov_x);
+        var _y1 = y + _bbox_t;
+        var _y2 = y + _bbox_b;
+        
+        if (tilemap_get_at_pixel(tilemap, _check_x, _y1) != 0 ||
+            tilemap_get_at_pixel(tilemap, _check_x, _y2) != 0) {
+            _mov_x = 0;
+        }
+    }
+    
+    // Eixo Y
+    if (_mov_y != 0) {
+        var _bbox_l2 = bbox_left - x;
+        var _bbox_r2 = bbox_right - x;
+        var _bbox_t2 = bbox_top - y;
+        var _bbox_b2 = bbox_bottom - y;
+        
+        var _check_y = (_mov_y > 0) ? (y + _bbox_b2 + _mov_y) : (y + _bbox_t2 + _mov_y);
+        var _x1 = x + _bbox_l2 + _mov_x; // usa _mov_x ja resolvido
+        var _x2 = x + _bbox_r2 + _mov_x;
+        
+        if (tilemap_get_at_pixel(tilemap, _x1, _check_y) != 0 ||
+            tilemap_get_at_pixel(tilemap, _x2, _check_y) != 0) {
+            _mov_y = 0;
+        }
+    }
+    
+    // Push-out: se o jogador ja esta dentro de um tile solido, empurra para fora
+    var _inside = false;
+    var _cl = bbox_left;
+    var _cr = bbox_right;
+    var _ct = bbox_top;
+    var _cb = bbox_bottom;
+    
+    if (tilemap_get_at_pixel(tilemap, _cl, _ct) != 0 ||
+        tilemap_get_at_pixel(tilemap, _cr, _ct) != 0 ||
+        tilemap_get_at_pixel(tilemap, _cl, _cb) != 0 ||
+        tilemap_get_at_pixel(tilemap, _cr, _cb) != 0) {
+        _inside = true;
+    }
+    
+    if (_inside) {
+        // Tenta empurrar 1 pixel em cada direcao ate sair
+        for (var _push = 1; _push <= 16; _push++) {
+            // Direita
+            if (tilemap_get_at_pixel(tilemap, _cr + _push, _ct) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cr + _push, _cb) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cl + _push, _ct) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cl + _push, _cb) == 0) {
+                x += _push;
+                break;
+            }
+            // Esquerda
+            if (tilemap_get_at_pixel(tilemap, _cl - _push, _ct) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cl - _push, _cb) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cr - _push, _ct) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cr - _push, _cb) == 0) {
+                x -= _push;
+                break;
+            }
+            // Baixo
+            if (tilemap_get_at_pixel(tilemap, _cl, _cb + _push) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cr, _cb + _push) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cl, _ct + _push) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cr, _ct + _push) == 0) {
+                y += _push;
+                break;
+            }
+            // Cima
+            if (tilemap_get_at_pixel(tilemap, _cl, _ct - _push) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cr, _ct - _push) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cl, _cb - _push) == 0 &&
+                tilemap_get_at_pixel(tilemap, _cr, _cb - _push) == 0) {
+                y -= _push;
+                break;
+            }
+        }
+    }
+}
+
+x += _mov_x;
+y += _mov_y;
 
 if(_hor != 0 or _ver != 0){
     if(_ver > 0) sprite_index = spr_player_walk_down;
