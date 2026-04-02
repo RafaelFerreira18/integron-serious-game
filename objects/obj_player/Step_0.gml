@@ -18,10 +18,10 @@ var _mov_x = _hor * move_speed;
 var _mov_y = _ver * move_speed;
 
 // Bloqueia passagem por obstaculos de smash enquanto nao forem destruidos.
-if (_mov_x != 0 && (place_meeting(x + _mov_x, y, Object16) || place_meeting(x + _mov_x, y, D_Baril))) {
+if (_mov_x != 0 && (place_meeting(x + _mov_x, y, Object16) || place_meeting(x + _mov_x, y, D_Baril) || place_meeting(x + _mov_x, y, obj_npc_elite))) {
     _mov_x = 0;
 }
-if (_mov_y != 0 && (place_meeting(x, y + _mov_y, Object16) || place_meeting(x, y + _mov_y, D_Baril))) {
+if (_mov_y != 0 && (place_meeting(x, y + _mov_y, Object16) || place_meeting(x, y + _mov_y, D_Baril) || place_meeting(x, y + _mov_y, obj_npc_elite))) {
     _mov_y = 0;
 }
 

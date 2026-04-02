@@ -6,6 +6,7 @@
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
+    {"name":"inst_pvp_battle","path":"rooms/rm_battle_integrons/rm_battle_integrons.yy",},
     {"name":"inst_27F937F8","path":"rooms/rm_battle_integrons/rm_battle_integrons.yy",},
     {"name":"inst_1F2787","path":"rooms/rm_battle_integrons/rm_battle_integrons.yy",},
     {"name":"inst_15FD94E6","path":"rooms/rm_battle_integrons/rm_battle_integrons.yy",},
@@ -14,6 +15,7 @@
   "isDnd":false,
   "layers":[
     {"$GMRInstanceLayer":"","%Name":"Instances_1","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
+        {"$GMRInstance":"v4","%Name":"inst_pvp_battle","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_pvp_battle","objectId":{"name":"obj_pvp_battle","path":"objects/obj_pvp_battle/obj_pvp_battle.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":0.0,"y":0.0,},
         {"$GMRInstance":"v4","%Name":"inst_27F937F8","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_27F937F8","objectId":{"name":"obj_user_integron","path":"objects/obj_user_integron/obj_user_integron.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":5.0,"scaleY":4.2,"x":271.0,"y":384.0,},
         {"$GMRInstance":"v4","%Name":"inst_1F2787","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1F2787","objectId":{"name":"obj_user_enemy","path":"objects/obj_user_enemy/obj_user_enemy.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":4.5625,"scaleY":3.5,"x":1108.5,"y":398.0,},
         {"$GMRInstance":"v4","%Name":"inst_15FD94E6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_15FD94E6","objectId":{"name":"obj_leave_battle","path":"objects/obj_leave_battle/obj_leave_battle.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":4.46875,"scaleY":3.84375,"x":965.5,"y":625.0,},

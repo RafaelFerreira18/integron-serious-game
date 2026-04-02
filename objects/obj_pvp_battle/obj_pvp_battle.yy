@@ -1,12 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_leave_battle",
+  "%Name":"obj_pvp_battle",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":4,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_leave_battle",
+  "name":"obj_pvp_battle",
   "overriddenProperties":[],
   "parent":{
     "name":"Battle_Integrons",
@@ -30,10 +31,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_button_run",
-    "path":"sprites/spr_button_run/spr_button_run.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
