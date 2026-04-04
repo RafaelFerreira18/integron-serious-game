@@ -183,9 +183,22 @@ if (smash_quiz_ativo) {
     exit;
 }
 
-var _obstaculo_smash = instance_place(x, y, Object16);
-if (!instance_exists(_obstaculo_smash)) {
-    _obstaculo_smash = instance_place(x, y, D_Baril);
+// Detecta obstaculo smashavel em uma zona de proximidade ao redor do player.
+var _raio_smash = 18;
+var _obstaculo_smash = noone;
+var _dirs_x = [0,  _raio_smash, -_raio_smash, 0,            0           ];
+var _dirs_y = [0,  0,            0,            _raio_smash, -_raio_smash ];
+for (var _d = 0; _d < 5; _d++) {
+    var _cx = x + _dirs_x[_d];
+    var _cy = y + _dirs_y[_d];
+    var _hit = instance_place(_cx, _cy, Object16);
+    if (!instance_exists(_hit)) {
+        _hit = instance_place(_cx, _cy, D_Baril);
+    }
+    if (instance_exists(_hit)) {
+        _obstaculo_smash = _hit;
+        break;
+    }
 }
 if (instance_exists(_obstaculo_smash)) {
     smash_prompt_ativo = true;
