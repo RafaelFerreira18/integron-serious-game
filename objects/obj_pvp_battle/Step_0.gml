@@ -95,6 +95,13 @@ if (estado == "verificando") {
 
     if (_acertou) {
         var _dmg = player_integron.dano_acerto;
+        if (ensino_retry_ativo) {
+            _dmg               = round(_dmg * 1.5);
+            ensino_retry_ativo = false;
+            feedback_estado    = "bonus";
+        } else {
+            feedback_estado = "acertou";
+        }
         enemy_integron.hp_atual -= _dmg;
         with (obj_user_enemy) {
             hp               = other.enemy_integron.hp_atual;
@@ -103,9 +110,13 @@ if (estado == "verificando") {
             dano_float_y     = 0;
             dano_float_timer = 40;
         }
-        feedback_texto  = "Correto! -" + string(_dmg) + " HP no inimigo!";
-        feedback_estado = "acertou";
+        if (feedback_estado == "bonus") {
+            feedback_texto = "APRENDIZADO! BONUS -" + string(_dmg) + " HP!";
+        } else {
+            feedback_texto = "Correto! -" + string(_dmg) + " HP no inimigo!";
+        }
     } else {
+        if (ensino_retry_ativo) ensino_retry_ativo = false;
         feedback_texto  = "Errado! Resposta: " + _aceitas[0];
         feedback_estado = "errou";
     }
@@ -123,7 +134,7 @@ if (estado == "mostrando_feedback") {
     if (feedback_timer <= 0) {
         overlay_ativo  = false;
         feedback_texto = "";
-        if (feedback_estado == "acertou") {
+        if (feedback_estado == "acertou" || feedback_estado == "bonus") {
             if (enemy_integron.hp_atual <= 0) {
                 enemy_derrotado = true;
                 estado          = "proximo_inimigo";
@@ -131,10 +142,65 @@ if (estado == "mostrando_feedback") {
                 estado = "turno_inimigo";
             }
         } else {
-            // Errou: inimigo ataca
-            estado = "turno_inimigo";
+            // Errou: abre o scroll de ensino
+            if (variable_struct_exists(questao_atual, "passos") && array_length(questao_atual.passos) > 0) {
+                ensino_passos         = questao_atual.passos;
+                ensino_passo_idx      = 0;
+                ensino_total_passos   = array_length(ensino_passos);
+                ensino_chars_visiveis = 0;
+                ensino_retry_prompt   = false;
+                keyboard_string       = "";
+                estado = "ensinando";
+            } else {
+                estado = "turno_inimigo";
+            }
         }
         estado_timer = 0;
+    }
+    exit;
+}
+
+// ===== ESTADO: ENSINANDO =====
+if (estado == "ensinando") {
+    keyboard_string = "";
+
+    if (!ensino_retry_prompt) {
+        var _texto_atual = ensino_passos[ensino_passo_idx];
+        var _total_chars = string_length(_texto_atual);
+        if (ensino_chars_visiveis < _total_chars) {
+            ensino_chars_visiveis += 3;
+            if (ensino_chars_visiveis > _total_chars) ensino_chars_visiveis = _total_chars;
+        }
+
+        if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
+            if (ensino_chars_visiveis < _total_chars) {
+                ensino_chars_visiveis = _total_chars;
+            } else {
+                ensino_passo_idx++;
+                ensino_chars_visiveis = 0;
+                if (ensino_passo_idx >= ensino_total_passos) {
+                    ensino_retry_prompt = true;
+                }
+            }
+        }
+    } else {
+        if (keyboard_check_pressed(ord("S"))) {
+            keyboard_string     = "";
+            ensino_retry_ativo  = true;
+            ensino_retry_prompt = false;
+            input_texto         = "";
+            input_ativo         = true;
+            overlay_ativo       = true;
+            estado              = "aguardando_input";
+            estado_timer        = 0;
+        }
+        if (keyboard_check_pressed(ord("N"))) {
+            keyboard_string     = "";
+            ensino_retry_prompt = false;
+            overlay_ativo       = false;
+            estado              = "turno_inimigo";
+            estado_timer        = 0;
+        }
     }
     exit;
 }

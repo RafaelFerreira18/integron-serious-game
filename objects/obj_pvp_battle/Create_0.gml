@@ -78,3 +78,11 @@ player_derrotado = false;
 player_rot   = 0;
 
 // ===== BARRAS DE HP: inicializadas no Step_0 apos criacao das instancias =====
+
+// ===== SISTEMA DE ENSINO =====
+ensino_passos         = [];
+ensino_passo_idx      = 0;
+ensino_total_passos   = 0;
+ensino_chars_visiveis = 0;
+ensino_retry_prompt   = false;
+ensino_retry_ativo    = false;

@@ -19,20 +19,43 @@ function scr_integrons_data() {
             // Pool de questoes para batalha PvP
             questoes: [
                 {
-                    enunciado:  "∫ 2x dx = ?",
-                    aceitas:    ["x^2+c","x2+c","x²+c"]
+                    enunciado: "∫ 2x dx = ?",
+                    aceitas:   ["x^2+c","x2+c","x²+c"],
+                    passos: [
+                        "Regra da Potência: ∫ xⁿ dx = xⁿ⁺¹ / (n+1) + C",
+                        "Temos 2·x¹, logo n=1 e coeficiente=2",
+                        "Calcule: 2 · x² / 2 = x²",
+                        "Resultado final: x² + C"
+                    ]
                 },
                 {
-                    enunciado:  "∫ 4x³ dx = ?",
-                    aceitas:    ["x^4+c","x4+c"]
+                    enunciado: "∫ 4x³ dx = ?",
+                    aceitas:   ["x^4+c","x4+c"],
+                    passos: [
+                        "Regra da Potência: ∫ xⁿ dx = xⁿ⁺¹ / (n+1) + C",
+                        "Temos 4·x³, logo n=3 e coeficiente=4",
+                        "Calcule: 4 · x⁴ / 4 = x⁴",
+                        "Resultado final: x⁴ + C"
+                    ]
                 },
                 {
-                    enunciado:  "∫ 3 dx = ?",
-                    aceitas:    ["3x+c"]
+                    enunciado: "∫ 3 dx = ?",
+                    aceitas:   ["3x+c"],
+                    passos: [
+                        "Integral de constante: ∫ k dx = k·x + C",
+                        "Aqui k = 3",
+                        "Resultado final: 3x + C"
+                    ]
                 },
                 {
-                    enunciado:  "∫ x dx = ?",
-                    aceitas:    ["x^2/2+c","x2/2+c"]
+                    enunciado: "∫ x dx = ?",
+                    aceitas:   ["x^2/2+c","x2/2+c"],
+                    passos: [
+                        "Regra da Potência: ∫ xⁿ dx = xⁿ⁺¹ / (n+1) + C",
+                        "Temos x¹, logo n=1",
+                        "Calcule: x²/(1+1) = x²/2",
+                        "Resultado final: x²/2 + C"
+                    ]
                 }
             ]
         },
@@ -51,20 +74,50 @@ function scr_integrons_data() {
             resposta:    0,
             questoes: [
                 {
-                    enunciado:  "∫ x·eˣ dx = ?",
-                    aceitas:    ["e^x(x-1)+c","ex(x-1)+c"]
+                    enunciado: "∫ x·eˣ dx = ?",
+                    aceitas:   ["e^x(x-1)+c","ex(x-1)+c"],
+                    passos: [
+                        "Por Partes: ∫ u·dv = u·v - ∫ v·du",
+                        "Escolha: u = x  →  du = dx",
+                        "Escolha: dv = eˣdx  →  v = eˣ",
+                        "Aplique: x·eˣ - ∫ eˣ dx = x·eˣ - eˣ",
+                        "Resultado final: eˣ(x-1) + C"
+                    ]
                 },
                 {
-                    enunciado:  "∫ x·cos(x) dx = ?",
-                    aceitas:    ["cos(x)+x*sin(x)+c","x*sin(x)+cos(x)+c"]
+                    enunciado: "∫ x·cos(x) dx = ?",
+                    aceitas:   ["cos(x)+x*sin(x)+c","x*sin(x)+cos(x)+c"],
+                    passos: [
+                        "Por Partes: ∫ u·dv = u·v - ∫ v·du",
+                        "Escolha: u = x  →  du = dx",
+                        "Escolha: dv = cos(x)dx  →  v = sen(x)",
+                        "Aplique: x·sen(x) - ∫ sen(x) dx",
+                        "∫ sen(x)dx = -cos(x), portanto: x·sen(x) + cos(x)",
+                        "Resultado final: x·sen(x) + cos(x) + C"
+                    ]
                 },
                 {
-                    enunciado:  "∫ ln(x) dx = ?",
-                    aceitas:    ["x*ln(x)-x+c","xln(x)-x+c"]
+                    enunciado: "∫ ln(x) dx = ?",
+                    aceitas:   ["x*ln(x)-x+c","xln(x)-x+c"],
+                    passos: [
+                        "Por Partes: ∫ u·dv = u·v - ∫ v·du",
+                        "Escolha: u = ln(x)  →  du = (1/x)dx",
+                        "Escolha: dv = dx  →  v = x",
+                        "Aplique: x·ln(x) - ∫ x·(1/x) dx = x·ln(x) - ∫ 1 dx",
+                        "Resultado final: x·ln(x) - x + C"
+                    ]
                 },
                 {
-                    enunciado:  "∫ x·sen(x) dx = ?",
-                    aceitas:    ["sen(x)-x*cos(x)+c","sin(x)-x*cos(x)+c"]
+                    enunciado: "∫ x·sen(x) dx = ?",
+                    aceitas:   ["sen(x)-x*cos(x)+c","sin(x)-x*cos(x)+c"],
+                    passos: [
+                        "Por Partes: ∫ u·dv = u·v - ∫ v·du",
+                        "Escolha: u = x  →  du = dx",
+                        "Escolha: dv = sen(x)dx  →  v = -cos(x)",
+                        "Aplique: -x·cos(x) - ∫ (-cos(x)) dx",
+                        "= -x·cos(x) + ∫ cos(x)dx = -x·cos(x) + sen(x)",
+                        "Resultado final: sen(x) - x·cos(x) + C"
+                    ]
                 }
             ]
         },
@@ -83,16 +136,36 @@ function scr_integrons_data() {
             resposta:    0,
             questoes: [
                 {
-                    enunciado:  "∫ 1/x dx = ?",
-                    aceitas:    ["ln|x|+c","ln(x)+c","ln|x|+c"]
+                    enunciado: "∫ 1/x dx = ?",
+                    aceitas:   ["ln|x|+c","ln(x)+c","ln|x|+c"],
+                    passos: [
+                        "Caso especial: ∫ x⁻¹ dx = ln|x| + C",
+                        "A Regra da Potência NÃO vale para n = -1",
+                        "Memorize: a integral de 1/x é sempre ln|x|",
+                        "Resultado final: ln|x| + C"
+                    ]
                 },
                 {
-                    enunciado:  "∫ 1/(x²-1) dx = ?",
-                    aceitas:    ["(1/2)*ln|(x-1)/(x+1)|+c","0.5*ln|(x-1)/(x+1)|+c"]
+                    enunciado: "∫ 1/(x²-1) dx = ?",
+                    aceitas:   ["(1/2)*ln|(x-1)/(x+1)|+c","0.5*ln|(x-1)/(x+1)|+c"],
+                    passos: [
+                        "Fatore o denominador: x²-1 = (x-1)(x+1)",
+                        "Frações Parciais: 1/((x-1)(x+1)) = A/(x-1) + B/(x+1)",
+                        "Resolva: x=1 → A=1/2  |  x=-1 → B=-1/2",
+                        "Integre: (1/2)·ln|x-1| - (1/2)·ln|x+1| + C",
+                        "Resultado final: (1/2)·ln|(x-1)/(x+1)| + C"
+                    ]
                 },
                 {
-                    enunciado:  "∫ 1/(x(x+1)) dx = ?",
-                    aceitas:    ["ln|x|-ln|x+1|+c","ln|x/(x+1)|+c"]
+                    enunciado: "∫ 1/(x(x+1)) dx = ?",
+                    aceitas:   ["ln|x|-ln|x+1|+c","ln|x/(x+1)|+c"],
+                    passos: [
+                        "Frações Parciais: 1/(x(x+1)) = A/x + B/(x+1)",
+                        "Multiplique: 1 = A(x+1) + Bx",
+                        "x=0 → A=1  |  x=-1 → B=-1",
+                        "Integre: ∫(1/x)dx - ∫(1/(x+1))dx",
+                        "Resultado final: ln|x| - ln|x+1| + C"
+                    ]
                 }
             ]
         }
