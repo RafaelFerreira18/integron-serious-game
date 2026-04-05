@@ -25,6 +25,36 @@ if (smash_prompt_ativo && !smash_quiz_ativo && smash_feedback_timer <= 0) {
     draw_text(20, 197, "[E] SMASSSHHHH!!!");
 }
 
+// Prompt do Integron Center
+if (instance_exists(obj_integron_center) && obj_integron_center.prompt_ativo) {
+    draw_set_alpha(0.9);
+    draw_set_color(make_color_rgb(10, 55, 35));
+    draw_rectangle(12, 182, 300, 212, false);
+    draw_set_alpha(1);
+    draw_set_color(make_color_rgb(80, 220, 140));
+    draw_rectangle(12, 182, 300, 212, true);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_middle);
+    draw_set_color(make_color_rgb(255, 255, 160));
+    draw_text(20, 197, "[E] Curar Integrons");
+}
+
+// Confirmacao de cura
+if (instance_exists(obj_integron_center) && obj_integron_center.cura_feedback_timer > 0) {
+    var _fa = min(1, obj_integron_center.cura_feedback_timer / 30);
+    draw_set_alpha(_fa);
+    draw_set_color(make_color_rgb(10, 55, 35));
+    draw_rectangle(12, 182, 320, 212, false);
+    draw_set_alpha(_fa);
+    draw_set_color(make_color_rgb(80, 220, 140));
+    draw_rectangle(12, 182, 320, 212, true);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_middle);
+    draw_set_color(make_color_rgb(180, 255, 200));
+    draw_text(20, 197, "\u2665 Integrons curados!");
+    draw_set_alpha(1);
+}
+
 if (party_overlay_ativo) {
     var _x = 12;
     var _y = 36;
@@ -47,10 +77,13 @@ if (party_overlay_ativo) {
         var _txt = string(i + 1) + ". [vazio]";
 
         if (i < array_length(global.player_party)) {
-            var _itg = global.player_party[i];
-            var _nome = variable_struct_exists(_itg, "nome") ? string(_itg.nome) : "Integron";
-            var _hp = variable_struct_exists(_itg, "hp") ? string(_itg.hp) : "?";
-            _txt = string(i + 1) + ". " + _nome + " (HP " + _hp + ")";
+            var _itg  = global.player_party[i];
+            var _nome = variable_struct_exists(_itg, "nome")    ? string(_itg.nome)    : "Integron";
+            var _hpa  = variable_struct_exists(_itg, "hp_atual") ? _itg.hp_atual        : 0;
+            var _hpm  = variable_struct_exists(_itg, "hp_max")   ? _itg.hp_max          : 60;
+            var _hp_txt = string(max(0, _hpa)) + "/" + string(_hpm);
+            if (_hpa <= 0) _hp_txt = "MORTO";
+            _txt = string(i + 1) + ". " + _nome + "  HP: " + _hp_txt;
         }
 
         draw_text(_x + 10, _linha_y + i * 22, _txt);

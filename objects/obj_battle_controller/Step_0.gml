@@ -190,11 +190,21 @@ for (var i = 0; i < 4; i++) {
                 }
 
                 if (array_length(global.player_party) < global.player_party_max) {
+                    // Busca hp_batalha real no pool de dados
+                    var _todos_cap = scr_integrons_data();
+                    var _hp_max_cap = variable_struct_exists(integron, "hp_batalha") ? integron.hp_batalha : 60;
+                    for (var _ci = 0; _ci < array_length(_todos_cap); _ci++) {
+                        if (_todos_cap[_ci].nome == _nome_integron) {
+                            _hp_max_cap = _todos_cap[_ci].hp_batalha;
+                            break;
+                        }
+                    }
                     var _capturado = {
-                        nome: _nome_integron,
-                        sprite: variable_struct_exists(integron, "sprite") ? integron.sprite : noone,
-                        hp: variable_struct_exists(integron, "hp") ? integron.hp : 0,
-                        metodo: variable_struct_exists(integron, "metodo") ? integron.metodo : "",
+                        nome:     _nome_integron,
+                        sprite:   variable_struct_exists(integron, "sprite") ? integron.sprite : noone,
+                        hp_atual: _hp_max_cap,
+                        hp_max:   _hp_max_cap,
+                        metodo:   variable_struct_exists(integron, "metodo") ? integron.metodo : "",
                         integral: variable_struct_exists(integron, "integral") ? integron.integral : ""
                     };
 

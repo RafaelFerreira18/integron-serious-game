@@ -6,6 +6,7 @@ action = function () {
             var _pool = player_integron.questoes;
             questao_atual     = _pool[irandom(array_length(_pool) - 1)];
             questao_enunciado = questao_atual.enunciado;
+            ensino_ja_visto   = false;  // nova questao: scroll pode ser exibido de novo
             input_texto       = "";
             keyboard_string   = "";
             input_ativo       = true;
