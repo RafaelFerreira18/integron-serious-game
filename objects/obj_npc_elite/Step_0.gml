@@ -2,6 +2,18 @@
 
 bob_timer++;
 
+// --- Cooldown apos sair de batalha (roda ANTES de tudo, inclusive check de derrotado) ---
+if (global.elite_battle_cooldown > 0) {
+    var _primeiro_npc = instance_find(obj_npc_elite, 0);
+    if (id == _primeiro_npc) {
+        global.elite_battle_cooldown--;
+    }
+    spotted       = false;
+    spotted_timer = 0;
+    if (aviso_timer > 0) aviso_timer--;
+    exit;
+}
+
 // Se este challenger ja foi derrotado, nao faz nada (fica parado)
 if (variable_global_exists("elite_defeated")
     && challenger_index < array_length(global.elite_defeated)
@@ -82,22 +94,10 @@ if (spotted) {
     exit;
 }
 
-// --- Cooldown apos sair de batalha (so o NPC de menor id decrementa) ---
-if (global.elite_battle_cooldown > 0) {
-    // Evita que multiplos NPCs decrementem o mesmo cooldown global
-    var _primeiro_npc = instance_find(obj_npc_elite, 0);
-    if (id == _primeiro_npc) {
-        global.elite_battle_cooldown--;
-    }
-    spotted       = false;
-    spotted_timer = 0;
-    if (aviso_timer > 0) aviso_timer--;
-    exit;
-}
-
-// --- Deteccao de proximidade (so uma vez, intro nao ativa) ---
-if (!instance_exists(obj_elite_intro)) {
-    if (_dist_atual <= interact_dist) {
+// --- Deteccao de proximidade ---
+// Permite re-engajar se o jogador estiver no raio apos o cooldown zerar.
+if (!instance_exists(obj_elite_intro) && _dist_atual <= interact_dist) {
+    if (!spotted) {
         show_debug_message("[npc_elite] Jogador entrou no raio! dist=" + string(_dist_atual) + " <= " + string(interact_dist));
         spotted       = true;
         spotted_timer = 0;

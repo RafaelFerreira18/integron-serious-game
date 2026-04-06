@@ -26,6 +26,18 @@ switch (phase) {
         break;
     case 3: // Aguarda clique
         if (mouse_check_button_pressed(mb_left) || keyboard_check_pressed(vk_anykey)) {
+            // Reseta todas as variaveis globais para novo jogo
+            global.player_party          = [];
+            global.player_party_max      = 4;
+            global.elite_defeated        = [false, false, false, false];
+            global.elite_battle_cooldown = 0;
+            global.tutorial_visto        = false;
+            global.pvp_challenger_index  = 0;
+            global.pvp_original_room     = Room1;
+            // Destroi instancias persistentes remanescentes
+            with (obj_battle_switcher) { instance_destroy(); }
+            with (obj_elite_intro)     { instance_destroy(); }
+            audio_stop_all();
             room_goto(rm_title);
         }
         break;

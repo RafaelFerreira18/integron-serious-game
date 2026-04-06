@@ -40,6 +40,19 @@ btn_exit_hover = (_mx >= btn_x - _half_w && _mx <= btn_x + _half_w &&
 // ===== CLIQUES =====
 if (mouse_check_button_pressed(mb_left) && fade_alpha <= 0) {
     if (btn_play_hover) {
+        // ===== RESETA TODAS AS VARIAVEIS GLOBAIS DO JOGO =====
+        global.player_party       = [];
+        global.player_party_max   = 4;
+        global.elite_defeated     = [false, false, false, false];
+        global.elite_battle_cooldown = 0;
+        global.tutorial_visto     = false;
+        global.pvp_challenger_index = 0;
+        global.pvp_original_room    = Room1;
+        // Destroi instancias persistentes remanescentes
+        with (obj_battle_switcher) { instance_destroy(); }
+        with (obj_elite_intro)     { instance_destroy(); }
+        audio_stop_all();
+
         room_goto(Room1);
     }
     if (btn_exit_hover) {

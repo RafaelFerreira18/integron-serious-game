@@ -1,9 +1,19 @@
 randomize();
 // Audio agora e gerenciado pelo evento Room Start do obj_player
 
+// ===== TUTORIAL NA PRIMEIRA VEZ =====
+if (!variable_global_exists("tutorial_visto")) {
+    global.tutorial_visto = false;
+}
+if (!global.tutorial_visto) {
+    instance_create_depth(0, 0, -10000, obj_tutorial);
+}
+
 // ===== LIMPAR obj_elite_intro REMANESCENTE =====
 // Pode sobreviver se criado na mesma room antes de sair.
 with (obj_elite_intro) { instance_destroy(); }
+// Destroi battle_switcher persistente de jogadas anteriores
+with (obj_battle_switcher) { instance_destroy(); }
 
 // ===== DESTRUIR PORTAS DE CHALLENGERS DERROTADOS =====
 // Roda apos todas as instancias ja terem sido criadas.

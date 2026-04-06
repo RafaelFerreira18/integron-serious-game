@@ -27,9 +27,19 @@ challenger             = _challengers[global.pvp_challenger_index];
 challenger_party_index = 0;
 player_party_index     = 0;
 
-// Integron ativo do jogador: primeiro da party
+// Encontra o primeiro integron VIVO na party do jogador
+for (var _pi = 0; _pi < array_length(global.player_party); _pi++) {
+    var _check = global.player_party[_pi];
+    var _check_hp = variable_struct_exists(_check, "hp_atual") ? _check.hp_atual : 1;
+    if (_check_hp > 0) {
+        player_party_index = _pi;
+        break;
+    }
+}
+
+// Integron ativo do jogador: primeiro VIVO da party
 var _todos_c   = scr_integrons_data();
-var _primeiro  = global.player_party[0];
+var _primeiro  = global.player_party[player_party_index];
 var _base_c    = _todos_c[0];
 for (var _ci = 0; _ci < array_length(_todos_c); _ci++) {
     if (_todos_c[_ci].nome == _primeiro.nome) {
@@ -40,7 +50,7 @@ for (var _ci = 0; _ci < array_length(_todos_c); _ci++) {
 player_integron = scr_pvp_clone_integron(_base_c);
 // Usa HP salvo da party (pode ter tomado dano em batalha anterior)
 var _hp_salvo = variable_struct_exists(_primeiro, "hp_atual") ? _primeiro.hp_atual : _base_c.hp_batalha;
-player_integron.hp_atual = max(0, _hp_salvo);
+player_integron.hp_atual = max(1, _hp_salvo);
 
 // Integron ativo do inimigo
 enemy_integron   = challenger.party[challenger_party_index];

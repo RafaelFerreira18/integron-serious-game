@@ -135,7 +135,12 @@ if (estado == "verificando") {
         }
     } else {
         if (ensino_retry_ativo) ensino_retry_ativo = false;
-        feedback_texto  = "Errado! Resposta: " + _aceitas[0];
+        // So mostra a resposta se o ensino ja foi visto (sem spoiler antes do ensinamento)
+        if (ensino_ja_visto || !variable_struct_exists(questao_atual, "passos") || array_length(questao_atual.passos) == 0) {
+            feedback_texto = "Errado! Resposta: " + _aceitas[0];
+        } else {
+            feedback_texto = "Errado! Vamos aprender...";
+        }
         feedback_estado = "errou";
     }
     feedback_timer = 120;
@@ -304,11 +309,22 @@ if (estado == "proximo_inimigo") {
 // ===== ESTADO: PROXIMO PLAYER =====
 if (estado == "proximo_player") {
     if (estado_timer == 1) {
-        player_party_index++;
         player_derrotado = false;
         player_rot       = 0;
 
-        if (player_party_index >= array_length(global.player_party)) {
+        // Encontra o proximo integron VIVO na party
+        var _achou_vivo = false;
+        for (var _si = player_party_index + 1; _si < array_length(global.player_party); _si++) {
+            var _cand = global.player_party[_si];
+            var _cand_hp = variable_struct_exists(_cand, "hp_atual") ? _cand.hp_atual : 1;
+            if (_cand_hp > 0) {
+                player_party_index = _si;
+                _achou_vivo = true;
+                break;
+            }
+        }
+
+        if (!_achou_vivo) {
             estado       = "derrota";
             estado_timer = 0;
             exit;
@@ -387,8 +403,10 @@ if (estado == "vitoria") {
 // ===== ESTADO: DERROTA =====
 if (estado == "derrota") {
     if (estado_timer == 1) {
-        // Ultima escritada: integron ativo ja tem 0 de HP (morreu em proximo_player)
-        global.player_party[player_party_index].hp_atual = 0;
+        // Salva HP 0 para o ultimo integron ativo (se ainda valido)
+        if (player_party_index < array_length(global.player_party)) {
+            global.player_party[player_party_index].hp_atual = 0;
+        }
     }
     if (estado_timer >= 200 && !variable_instance_exists(self, "goto_disparado")) {
         goto_disparado = true;

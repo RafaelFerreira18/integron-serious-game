@@ -14,6 +14,12 @@ if (smash_quiz_ativo || smash_feedback_timer > 0) {
     _ver = 0;
 }
 
+// Bloqueia movimento enquanto o tutorial estiver aberto
+if (instance_exists(obj_tutorial)) {
+    _hor = 0;
+    _ver = 0;
+}
+
 // Bloqueia movimento quando o overlay do Integron Center estiver aberto
 if (instance_exists(obj_integron_center) && obj_integron_center.overlay_ativo) {
     _hor = 0;

@@ -72,6 +72,7 @@
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_pvp_battle","path":"objects/obj_pvp_battle/obj_pvp_battle.yy",},},
     {"id":{"name":"obj_rock_smash","path":"objects/obj_rock_smash/obj_rock_smash.yy",},},
+    {"id":{"name":"obj_tutorial","path":"objects/obj_tutorial/obj_tutorial.yy",},},
     {"id":{"name":"obj_title_controller","path":"objects/obj_title_controller/obj_title_controller.yy",},},
     {"id":{"name":"obj_user_enemy","path":"objects/obj_user_enemy/obj_user_enemy.yy",},},
     {"id":{"name":"obj_user_integron","path":"objects/obj_user_integron/obj_user_integron.yy",},},
