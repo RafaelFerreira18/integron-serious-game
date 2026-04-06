@@ -49,13 +49,35 @@ if (!inicializado) {
 
     // Atribui o sprite do integron ao obj_battle_enemy para aparecer no campo
     if (instance_exists(obj_battle_enemy) && is_struct(integron) && variable_struct_exists(integron, "sprite") && sprite_exists(integron.sprite)) {
-        obj_battle_enemy.sprite_index = integron.sprite;
-        obj_battle_enemy.image_xscale = 1;
-        obj_battle_enemy.image_yscale = 1;
+        var _be = instance_find(obj_battle_enemy, 0);
+        var _spr = integron.sprite;
+        var _w = sprite_get_width(_spr);
+        var _h = sprite_get_height(_spr);
+        var _xo = sprite_get_xoffset(_spr);
+        var _yo = sprite_get_yoffset(_spr);
+        var _tx = room_width * 0.803125;
+        var _ty = room_height * 0.5;
+
+        _be.sprite_index = _spr;
+        _be.image_xscale = 1;
+        _be.image_yscale = 1;
+        // Mantem o centro visual do sprite no centro do circulo da arena.
+        _be.x = _tx + _xo - (_w * 0.5);
+        _be.y = _ty + _yo - (_h * 0.5);
     }
 
     exit;
 }
+
+gui_w = display_get_gui_width();
+gui_h = display_get_gui_height();
+ui_cx = gui_w * 0.5;
+ui_enemy_x = gui_w * 0.803125;
+ui_enemy_y = gui_h * 0.3888889;
+ui_ball_start_x = gui_w * 0.19375;
+ui_ball_start_y = gui_h * 0.6666667;
+ui_ball_arc_h = gui_h * 0.2777778;
+ui_ball_drop_h = gui_h * 0.2777778;
 
 if (!overlay_ativo) exit;
 
@@ -69,12 +91,12 @@ if (captura_ativo) {
             // Bola voa em arco do jogador ate o inimigo
             var _t = captura_timer / 50;
             if (_t > 1) _t = 1;
-            cap_bola_x = lerp(248, 1028, _t);
-            cap_bola_y = lerp(480, 280, _t) - sin(_t * pi) * 200;
+            cap_bola_x = lerp(ui_ball_start_x, ui_enemy_x, _t);
+            cap_bola_y = lerp(ui_ball_start_y, ui_enemy_y, _t) - sin(_t * pi) * ui_ball_arc_h;
             cap_bola_rot = (cap_bola_rot + 14) mod 360;
             if (captura_timer >= 50) {
-                cap_bola_x   = 1028;
-                cap_bola_y   = 280;
+                cap_bola_x   = ui_enemy_x;
+                cap_bola_y   = ui_enemy_y;
                 captura_fase = "absorvendo";
                 captura_timer = 0;
             }
@@ -102,10 +124,10 @@ if (captura_ativo) {
         case "caindo":
             // Bola cai ao chao com gravidade
             var _t = captura_timer / 25;
-            cap_bola_y   = 280 + _t * _t * 200;
+            cap_bola_y   = ui_enemy_y + _t * _t * ui_ball_drop_h;
             cap_bola_rot = (cap_bola_rot + 10) mod 360;
             if (captura_timer >= 25) {
-                cap_bola_y   = 480;
+                cap_bola_y   = ui_ball_start_y;
                 cap_bola_rot = 0;
                 captura_fase  = "balancando";
                 captura_timer = 0;
@@ -174,7 +196,7 @@ var _my   = device_mouse_y_to_gui(0);
 var _larg = 400;
 var _alt  = 80;
 var _gap  = 20;
-var _ox   = (1280 - (_larg * 2 + _gap)) / 2;
+var _ox   = (gui_w - (_larg * 2 + _gap)) / 2;
 var _oy   = 320;
 
 opcao_hover = -1;
@@ -231,8 +253,8 @@ for (var i = 0; i < 4; i++) {
                 captura_ativo     = true;
                 captura_fase      = "voando";
                 captura_timer     = 0;
-                cap_bola_x        = 248;
-                cap_bola_y        = 480;
+                cap_bola_x        = ui_ball_start_x;
+                cap_bola_y        = ui_ball_start_y;
                 cap_bola_rot      = 0;
                 cap_inimigo_alpha = 1;
                 cap_inimigo_scale = 1;

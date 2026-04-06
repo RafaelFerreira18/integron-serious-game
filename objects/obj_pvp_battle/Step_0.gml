@@ -16,6 +16,15 @@ if (!barras_prontas) {
         hp           = other.player_integron.hp_atual;
         hp_display   = hp;
         sprite_index = other.player_integron.sprite;
+        var _spr_p = sprite_index;
+        var _w_p = sprite_get_width(_spr_p);
+        var _h_p = sprite_get_height(_spr_p);
+        var _xo_p = sprite_get_xoffset(_spr_p);
+        var _yo_p = sprite_get_yoffset(_spr_p);
+        var _tx_p = room_width * 0.1957;
+        var _ty_p = room_height * 0.5;
+        x = _tx_p + _xo_p - (_w_p * 0.5);
+        y = _ty_p + _yo_p - (_h_p * 0.5);
     }
     with (obj_user_enemy) {
         nome         = other.enemy_integron.nome;
@@ -23,6 +32,15 @@ if (!barras_prontas) {
         hp           = other.enemy_integron.hp_atual;
         hp_display   = hp;
         sprite_index = other.enemy_integron.sprite;
+        var _spr_e = sprite_index;
+        var _w_e = sprite_get_width(_spr_e);
+        var _h_e = sprite_get_height(_spr_e);
+        var _xo_e = sprite_get_xoffset(_spr_e);
+        var _yo_e = sprite_get_yoffset(_spr_e);
+        var _tx_e = room_width * 0.8;
+        var _ty_e = room_height * 0.5182;
+        x = _tx_e + _xo_e - (_w_e * 0.5);
+        y = _ty_e + _yo_e - (_h_e * 0.5);
     }
 }
 
@@ -265,6 +283,15 @@ if (estado == "proximo_inimigo") {
             hp           = other.enemy_integron.hp_atual;
             hp_display   = hp;
             sprite_index = other.enemy_integron.sprite;
+            var _spr_e2 = sprite_index;
+            var _w_e2 = sprite_get_width(_spr_e2);
+            var _h_e2 = sprite_get_height(_spr_e2);
+            var _xo_e2 = sprite_get_xoffset(_spr_e2);
+            var _yo_e2 = sprite_get_yoffset(_spr_e2);
+            var _tx_e2 = room_width * 0.8;
+            var _ty_e2 = room_height * 0.5182;
+            x = _tx_e2 + _xo_e2 - (_w_e2 * 0.5);
+            y = _ty_e2 + _yo_e2 - (_h_e2 * 0.5);
         }
     }
     if (estado_timer >= 100) {
@@ -307,6 +334,15 @@ if (estado == "proximo_player") {
             hp           = other.player_integron.hp_atual;
             hp_display   = hp;
             sprite_index = other.player_integron.sprite;
+            var _spr_p2 = sprite_index;
+            var _w_p2 = sprite_get_width(_spr_p2);
+            var _h_p2 = sprite_get_height(_spr_p2);
+            var _xo_p2 = sprite_get_xoffset(_spr_p2);
+            var _yo_p2 = sprite_get_yoffset(_spr_p2);
+            var _tx_p2 = room_width * 0.1957;
+            var _ty_p2 = room_height * 0.5;
+            x = _tx_p2 + _xo_p2 - (_w_p2 * 0.5);
+            y = _ty_p2 + _yo_p2 - (_h_p2 * 0.5);
         }
     }
     if (estado_timer >= 100) {

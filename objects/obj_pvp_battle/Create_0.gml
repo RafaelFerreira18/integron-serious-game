@@ -9,6 +9,19 @@ keyboard_string = "";
 if (!variable_global_exists("pvp_challenger_index")) {
     global.pvp_challenger_index = 0;
 }
+
+// Garante posicionamento consistente dos integrons na room, independente do tamanho da janela.
+if (instance_exists(obj_user_integron)) {
+    var _u_player = instance_find(obj_user_integron, 0);
+    _u_player.x = room_width * 0.1957;
+    _u_player.y = room_height * 0.5;
+}
+if (instance_exists(obj_user_enemy)) {
+    var _u_enemy = instance_find(obj_user_enemy, 0);
+    _u_enemy.x = room_width * 0.8;
+    _u_enemy.y = room_height * 0.5182;
+}
+
 var _challengers = scr_elite_four_data();
 challenger             = _challengers[global.pvp_challenger_index];
 challenger_party_index = 0;

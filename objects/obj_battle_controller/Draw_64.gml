@@ -1,5 +1,12 @@
 if (is_undefined(integron)) exit;
 
+var _gw = display_get_gui_width();
+var _gh = display_get_gui_height();
+var _cx = _gw * 0.5;
+var _enemy_x = _gw * 0.803125;
+var _enemy_y = _gh * 0.3888889;
+var _ball_ground_y = _gh * 0.6666667;
+
 var _nome_integron = "Integron";
 if (is_struct(integron)) {
     if (variable_struct_exists(integron, "nome")) {
@@ -26,7 +33,13 @@ if (captura_ativo) {
         } else if (is_struct(integron) && variable_struct_exists(integron, "sprite") && sprite_exists(integron.sprite)) {
             _spr_inimigo = integron.sprite;
         }
-        draw_sprite_ext(_spr_inimigo, 0, 1028, 280, 1, 1, 0, c_white, 1);
+        var _w_inim = sprite_get_width(_spr_inimigo);
+        var _h_inim = sprite_get_height(_spr_inimigo);
+        var _xo_inim = sprite_get_xoffset(_spr_inimigo);
+        var _yo_inim = sprite_get_yoffset(_spr_inimigo);
+        var _dx_inim = _enemy_x + _xo_inim - (_w_inim * 0.5);
+        var _dy_inim = _enemy_y + _yo_inim - (_h_inim * 0.5);
+        draw_sprite_ext(_spr_inimigo, 0, _dx_inim, _dy_inim, 1, 1, 0, c_white, 1);
         // Sombra de trajetoria (rastro)
         draw_set_color(make_color_rgb(255, 80, 80));
         draw_set_alpha(0.4);
@@ -49,8 +62,14 @@ if (captura_ativo) {
             } else if (is_struct(integron) && variable_struct_exists(integron, "sprite") && sprite_exists(integron.sprite)) {
                 _spr_inimigo = integron.sprite;
             }
+            var _w2 = sprite_get_width(_spr_inimigo);
+            var _h2 = sprite_get_height(_spr_inimigo);
+            var _xo2 = sprite_get_xoffset(_spr_inimigo);
+            var _yo2 = sprite_get_yoffset(_spr_inimigo);
+            var _dx2 = _enemy_x + (_xo2 - (_w2 * 0.5)) * cap_inimigo_scale;
+            var _dy2 = _enemy_y + (_yo2 - (_h2 * 0.5)) * cap_inimigo_scale;
             draw_sprite_ext(_spr_inimigo, 0,
-                            1028, 280,
+                            _dx2, _dy2,
                             1 * cap_inimigo_scale, 1 * cap_inimigo_scale,
                             0, make_color_rgb(255, 180, 180), cap_inimigo_alpha);
         }
@@ -58,7 +77,7 @@ if (captura_ativo) {
         if ((captura_timer mod 6) < 3) {
             draw_set_color(c_white);
             draw_set_alpha(0.35);
-            draw_circle(1028, 280, 48 + captura_timer * 1.2, true);
+            draw_circle(_enemy_x, _enemy_y, 48 + captura_timer * 1.2, true);
             draw_set_alpha(1);
         }
         // Pokebola aberta esperando
@@ -73,8 +92,8 @@ if (captura_ativo) {
         var _shadow_t = captura_timer / 25;
         draw_set_color(c_black);
         draw_set_alpha(0.3 * _shadow_t);
-        draw_ellipse(cap_bola_x - 20 * _shadow_t, 492,
-                     cap_bola_x + 20 * _shadow_t, 498, false);
+        draw_ellipse(cap_bola_x - 20 * _shadow_t, _ball_ground_y + 12,
+                     cap_bola_x + 20 * _shadow_t, _ball_ground_y + 18, false);
         draw_set_alpha(1);
     }
 
@@ -83,7 +102,7 @@ if (captura_ativo) {
         // Sombra embaixo da bola
         draw_set_color(c_black);
         draw_set_alpha(0.35);
-        draw_ellipse(cap_bola_x - 24, 492, cap_bola_x + 24, 498, false);
+        draw_ellipse(cap_bola_x - 24, _ball_ground_y + 12, cap_bola_x + 24, _ball_ground_y + 18, false);
         draw_set_alpha(1);
         // Pokebola balancando (wobble)
         draw_sprite_ext(spr_box, 1, cap_bola_x, cap_bola_y, 9, 9, cap_bola_rot, c_white, 1);
@@ -102,7 +121,7 @@ if (captura_ativo) {
         draw_set_color(c_white);
         draw_set_halign(fa_center);
         draw_set_valign(fa_middle);
-        draw_text_transformed(640, 580, _dots, 2.5, 2.5, 0);
+        draw_text_transformed(_cx, _gh * 0.8055556, _dots, 2.5, 2.5, 0);
     }
 
     // --- FASE: CAPTURADO ---
@@ -129,9 +148,9 @@ if (captura_ativo) {
         draw_set_halign(fa_center);
         draw_set_valign(fa_middle);
         draw_set_color(make_color_rgb(255, 220, 50));
-        draw_text_transformed(640, 350, _nome_integron + " foi capturado!", 3, 3, 0);
+        draw_text_transformed(_cx, _gh * 0.4861111, _nome_integron + " foi capturado!", 3, 3, 0);
         draw_set_color(c_lime);
-        draw_text_transformed(640, 410, feedback_texto, 1.8, 1.8, 0);
+        draw_text_transformed(_cx, _gh * 0.5694444, feedback_texto, 1.8, 1.8, 0);
     }
 
     // Reset estado de draw
@@ -154,7 +173,7 @@ if (overlay_ativo) {
 
     draw_set_alpha(0.75);
     draw_set_color(c_black);
-    draw_rectangle(0, 0, display_get_gui_width(), display_get_gui_height(), false);
+    draw_rectangle(0, 0, _gw, _gh, false);
     draw_set_alpha(1);
 
     // Sprite do integron selvagem no centro superior
@@ -162,19 +181,28 @@ if (overlay_ativo) {
     if (is_struct(integron) && variable_struct_exists(integron, "sprite") && sprite_exists(integron.sprite)) {
         _spr_captura = integron.sprite;
     }
-    draw_sprite_ext(_spr_captura, 0, 640, 180, 3, 3, 0, c_white, 1);
+    var _w_cap = sprite_get_width(_spr_captura);
+    var _h_cap = sprite_get_height(_spr_captura);
+    var _xo_cap = sprite_get_xoffset(_spr_captura);
+    var _yo_cap = sprite_get_yoffset(_spr_captura);
+    var _anchor_x = _cx;
+    var _anchor_y = _gh * 0.25;
+    var _scale_cap = 3;
+    var _dx_cap = _anchor_x + (_xo_cap - (_w_cap * 0.5)) * _scale_cap;
+    var _dy_cap = _anchor_y + (_yo_cap - (_h_cap * 0.5)) * _scale_cap;
+    draw_sprite_ext(_spr_captura, 0, _dx_cap, _dy_cap, _scale_cap, _scale_cap, 0, c_white, 1);
 
     draw_set_color(c_white);
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
     draw_set_font(-1);
-    draw_text(640,  240, "Capture " + _nome_integron + "!");
-    draw_text(640, 270, integron.integral);
+    draw_text(_cx,  _gh * 0.3333333, "Capture " + _nome_integron + "!");
+    draw_text(_cx, _gh * 0.375, integron.integral);
 
     var _larg = 400;
     var _alt  = 80;
     var _gap  = 20;
-    var _ox   = (1280 - (_larg * 2 + _gap)) / 2;
+    var _ox   = (_gw - (_larg * 2 + _gap)) / 2;
     var _oy   = 320;
 
     for (var i = 0; i < 4; i++) {
@@ -201,7 +229,7 @@ if (overlay_ativo) {
         draw_set_color(feedback_estado == "acertou" ? c_lime : c_red);
         draw_set_halign(fa_center);
         draw_set_valign(fa_top);
-        draw_text(640, 240, feedback_texto);
+        draw_text(_cx, _gh * 0.3333333, feedback_texto);
     }
 
     draw_set_halign(fa_left);
