@@ -51,7 +51,7 @@ if (instance_exists(obj_integron_center) && obj_integron_center.cura_feedback_ti
     draw_set_halign(fa_left);
     draw_set_valign(fa_middle);
     draw_set_color(make_color_rgb(180, 255, 200));
-    draw_text(20, 197, "\u2665 Integrons curados!");
+    draw_text(20, 197, "Integrons curados!");
     draw_set_alpha(1);
 }
 

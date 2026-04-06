@@ -70,7 +70,7 @@ if (overlay_ativo) {
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
     draw_set_color(make_color_rgb(180, 255, 200));
-    draw_text_transformed(_gw / 2, _py2 + 14, "\u2665  Integron Center  \u2665", 1.6, 1.6, 0);
+    draw_text_transformed(_gw / 2, _py2 + 14, "Integron Center", 1.6, 1.6, 0);
     draw_set_color(c_white);
     draw_text_transformed(_gw / 2, _py2 + 44, "\"Restauro o poder dos seus Integrons!\"", 1.0, 1.0, 0);
 

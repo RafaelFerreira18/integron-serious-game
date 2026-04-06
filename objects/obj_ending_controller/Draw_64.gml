@@ -26,10 +26,10 @@ if (phase >= 1) {
 
     // Brilho dourado
     draw_set_color(make_color_rgb(255, 215, 50));
-    draw_text_transformed(_gw / 2, _gh * 0.25, "PARABÉNS!", 6, 6, 0);
+    draw_text_transformed(_gw / 2, _gh * 0.25, "PARABENS!", 6, 6, 0);
 
     draw_set_color(c_white);
-    draw_text_transformed(_gw / 2, _gh * 0.25 + 70, "Você derrotou a Elite Four!", 2.5, 2.5, 0);
+    draw_text_transformed(_gw / 2, _gh * 0.25 + 70, "Voce derrotou a Elite Four!", 2.5, 2.5, 0);
 }
 
 // === FASE 2+: Creditos/mensagem ===
@@ -40,15 +40,15 @@ if (phase >= 2) {
     draw_set_color(make_color_rgb(180, 220, 255));
     var _cy = _gh * 0.50;
 
-    draw_text_transformed(_gw / 2, _cy, "Você dominou os métodos de integração:", 2, 2, 0);
+    draw_text_transformed(_gw / 2, _cy, "Voce dominou os metodos de integracao:", 2, 2, 0);
 
     draw_set_color(make_color_rgb(100, 200, 255));
-    draw_text_transformed(_gw / 2, _cy + 50, "✦ Substituição Simples", 1.8, 1.8, 0);
-    draw_text_transformed(_gw / 2, _cy + 90, "✦ Integração por Partes", 1.8, 1.8, 0);
-    draw_text_transformed(_gw / 2, _cy + 130, "✦ Frações Parciais", 1.8, 1.8, 0);
+    draw_text_transformed(_gw / 2, _cy + 50, "- Substituicao Simples", 1.8, 1.8, 0);
+    draw_text_transformed(_gw / 2, _cy + 90, "- Integracao por Partes", 1.8, 1.8, 0);
+    draw_text_transformed(_gw / 2, _cy + 130, "- Fracoes Parciais", 1.8, 1.8, 0);
 
     draw_set_color(make_color_rgb(255, 220, 100));
-    draw_text_transformed(_gw / 2, _cy + 200, "O Mestre da Integração!", 2.5, 2.5, 0);
+    draw_text_transformed(_gw / 2, _cy + 200, "O Mestre da Integracao!", 2.5, 2.5, 0);
 }
 
 // === FASE 3: Clique para continuar ===

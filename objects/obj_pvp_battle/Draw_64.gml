@@ -119,11 +119,11 @@ if (estado == "ensinando") {
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
     draw_set_color(make_color_rgb(255, 220, 80));
-    draw_text_transformed(_gw / 2, _sy + 14, "\u2605  " + player_integron.nome + " te ensina!  \u2605", 1.5, 1.5, 0);
+    draw_text_transformed(_gw / 2, _sy + 14, "*  " + player_integron.nome + " te ensina!  *", 1.5, 1.5, 0);
 
     // Subtitulo (metodo)
     draw_set_color(make_color_rgb(140, 180, 255));
-    draw_text_transformed(_gw / 2, _sy + 48, "M\u00e9todo: " + player_integron.metodo, 1.2, 1.2, 0);
+    draw_text_transformed(_gw / 2, _sy + 48, "Metodo: " + player_integron.metodo, 1.2, 1.2, 0);
 
     // Linha divisoria
     draw_set_alpha(0.4);
@@ -152,7 +152,7 @@ if (estado == "ensinando") {
         draw_set_valign(fa_bottom);
         if (ensino_chars_visiveis >= string_length(_texto_step)) {
             draw_set_color(make_color_rgb(200, 200, 100));
-            var _hint = (ensino_passo_idx < ensino_total_passos - 1) ? "[Enter] Pr\u00f3ximo passo" : "[Enter] Continuar";
+            var _hint = (ensino_passo_idx < ensino_total_passos - 1) ? "[Enter] Proximo passo" : "[Enter] Continuar";
             draw_text_transformed(_gw / 2, _sy + _sh - 12, _hint, 1.2, 1.2, 0);
         } else {
             draw_set_color(make_color_rgb(100, 100, 80));
@@ -164,10 +164,10 @@ if (estado == "ensinando") {
         draw_set_halign(fa_center);
         draw_set_valign(fa_top);
         draw_set_color(c_white);
-        draw_text_transformed(_gw / 2, _sy + 96, "Entendeu o m\u00e9todo?", 1.9, 1.9, 0);
+        draw_text_transformed(_gw / 2, _sy + 96, "Entendeu o metodo?", 1.9, 1.9, 0);
 
         draw_set_color(make_color_rgb(150, 255, 160));
-        draw_text_ext_transformed(_gw / 2, _sy + 150, "Acerte agora e cause DANO B\u00d4NUS x1.5!", -1, _sw - 60, 1.4, 1.4, 0);
+        draw_text_ext_transformed(_gw / 2, _sy + 150, "Acerte agora e cause DANO BONUS x1.5!", -1, _sw - 60, 1.4, 1.4, 0);
 
         var _btn_w = _sw / 2 - 30;
         var _btn_h = 58;

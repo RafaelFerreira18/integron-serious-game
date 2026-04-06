@@ -36,7 +36,7 @@ draw_set_alpha(1);
 // ===== SÍMBOLO INTEGRAL GRANDE ATRÁS DO LOGO =====
 draw_set_alpha(0.08);
 draw_set_colour(make_colour_rgb(180, 200, 255));
-draw_text_transformed(_cx, logo_y_base + logo_float_offset, "∫",
+draw_text_transformed(_cx, logo_y_base + logo_float_offset, "S",
     18, 18, 0);
 draw_set_alpha(1);
 
@@ -131,7 +131,7 @@ draw_text_transformed(btn_x, btn_exit_y, btn_exit_text, _exit_scale, _exit_scale
 // ===== RODAPÉ =====
 draw_set_colour(make_colour_rgb(120, 130, 170));
 draw_set_alpha(0.7);
-draw_text_transformed(_cx, display_h - 40, "Pressione JOGAR para começar sua jornada!", 1.2, 1.2, 0);
+draw_text_transformed(_cx, display_h - 40, "Pressione JOGAR para comecar sua jornada!", 1.2, 1.2, 0);
 draw_set_alpha(1);
 
 // ===== POKEBALL DECORATIVAS NOS CANTOS =====

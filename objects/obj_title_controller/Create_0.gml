@@ -33,7 +33,7 @@ particle_alpha = array_create(max_particles);
 particle_symbol = array_create(max_particles);
 particle_size = array_create(max_particles);
 
-var _symbols = ["∫", "dx", "∑", "∂", "π", "∞", "Δ", "√"];
+var _symbols = ["S", "dx", "E", "d", "pi", "oo", "D", "V"];
 
 for (var i = 0; i < max_particles; i++) {
     particle_x[i] = irandom(display_w);
