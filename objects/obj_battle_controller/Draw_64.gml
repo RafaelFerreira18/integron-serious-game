@@ -20,8 +20,13 @@ if (captura_ativo) {
     // --- FASE: VOANDO ---
     if (captura_fase == "voando") {
         // Desenha o inimigo no fundo enquanto a bola voa
-        var _spr_inimigo = instance_exists(obj_battle_enemy) ? obj_battle_enemy.sprite_index : spr_enemy2;
-        draw_sprite_ext(_spr_inimigo, 0, 1028, 280, 4, 4, 0, c_white, 1);
+        var _spr_inimigo = spr_enemy1;
+        if (instance_exists(obj_battle_enemy) && sprite_exists(obj_battle_enemy.sprite_index)) {
+            _spr_inimigo = obj_battle_enemy.sprite_index;
+        } else if (is_struct(integron) && variable_struct_exists(integron, "sprite") && sprite_exists(integron.sprite)) {
+            _spr_inimigo = integron.sprite;
+        }
+        draw_sprite_ext(_spr_inimigo, 0, 1028, 280, 1, 1, 0, c_white, 1);
         // Sombra de trajetoria (rastro)
         draw_set_color(make_color_rgb(255, 80, 80));
         draw_set_alpha(0.4);
@@ -38,10 +43,15 @@ if (captura_ativo) {
     else if (captura_fase == "absorvendo") {
         // Inimigo piscando e encolhendo em direcao a bola
         if (cap_inimigo_alpha > 0) {
-            var _spr_inimigo = instance_exists(obj_battle_enemy) ? obj_battle_enemy.sprite_index : spr_enemy2;
+            var _spr_inimigo = spr_enemy1;
+            if (instance_exists(obj_battle_enemy) && sprite_exists(obj_battle_enemy.sprite_index)) {
+                _spr_inimigo = obj_battle_enemy.sprite_index;
+            } else if (is_struct(integron) && variable_struct_exists(integron, "sprite") && sprite_exists(integron.sprite)) {
+                _spr_inimigo = integron.sprite;
+            }
             draw_sprite_ext(_spr_inimigo, 0,
                             1028, 280,
-                            4 * cap_inimigo_scale, 4 * cap_inimigo_scale,
+                            1 * cap_inimigo_scale, 1 * cap_inimigo_scale,
                             0, make_color_rgb(255, 180, 180), cap_inimigo_alpha);
         }
         // Anel de energia ao redor do inimigo
@@ -147,12 +157,19 @@ if (overlay_ativo) {
     draw_rectangle(0, 0, display_get_gui_width(), display_get_gui_height(), false);
     draw_set_alpha(1);
 
+    // Sprite do integron selvagem no centro superior
+    var _spr_captura = spr_enemy1;
+    if (is_struct(integron) && variable_struct_exists(integron, "sprite") && sprite_exists(integron.sprite)) {
+        _spr_captura = integron.sprite;
+    }
+    draw_sprite_ext(_spr_captura, 0, 640, 180, 3, 3, 0, c_white, 1);
+
     draw_set_color(c_white);
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
     draw_set_font(-1);
-    draw_text(640,  60, "Capture " + _nome_integron + "!");
-    draw_text(640, 110, integron.integral);
+    draw_text(640,  240, "Capture " + _nome_integron + "!");
+    draw_text(640, 270, integron.integral);
 
     var _larg = 400;
     var _alt  = 80;

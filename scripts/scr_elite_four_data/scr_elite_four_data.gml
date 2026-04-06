@@ -5,37 +5,45 @@ function scr_elite_four_data() {
     var _todos = scr_integrons_data();
 
     return [
-        // ── CHALLENGER 1: Aria — Elite do Cálculo Básico (para testes) ──
+        // ── CHALLENGER 0: Aria — 1 integron (Substitutus) ──
         {
             nome:     "Aria",
             subtitulo:"Elite do Cálculo",
             cor:      make_color_rgb(100, 160, 255),
             party: [
-                scr_pvp_clone_integron(_todos[0], spr_enemy1),   // Substitutus
-                scr_pvp_clone_integron(_todos[1], spr_enemy1)    // Partius
+                scr_pvp_clone_integron(_todos[0])    // Substitutus
             ]
         },
 
-        // ── CHALLENGER 2: Nox — Mestre das Partes ──
+        // ── CHALLENGER 1: Nox — 1 integron (Partius) ──
         {
             nome:     "Nox",
             subtitulo:"Mestre das Partes",
             cor:      make_color_rgb(180, 80, 220),
             party: [
-                scr_pvp_clone_integron(_todos[1], spr_enemy1),   // Partius
-                scr_pvp_clone_integron(_todos[2], spr_enemy1)    // Fraccius
+                scr_pvp_clone_integron(_todos[1])    // Partius
             ]
         },
 
-        // ── CHALLENGER 3: Rex — O Invicto ──
+        // ── CHALLENGER 2: Rex — 1 integron (Fraccius) ──
         {
             nome:     "Rex",
             subtitulo:"O Invicto",
             cor:      make_color_rgb(220, 80, 60),
             party: [
-                scr_pvp_clone_integron(_todos[0], spr_enemy1),   // Substitutus
-                scr_pvp_clone_integron(_todos[1], spr_enemy1),   // Partius
-                scr_pvp_clone_integron(_todos[2], spr_enemy1)    // Fraccius
+                scr_pvp_clone_integron(_todos[2])    // Fraccius
+            ]
+        },
+
+        // ── CHALLENGER 3: AXIOM — Final Boss (todos os 3 integrons) ──
+        {
+            nome:     "AXIOM",
+            subtitulo:"O Teorema Final",
+            cor:      make_color_rgb(255, 200, 40),
+            party: [
+                scr_pvp_clone_integron(_todos[0]),   // Substitutus
+                scr_pvp_clone_integron(_todos[1]),   // Partius
+                scr_pvp_clone_integron(_todos[2])    // Fraccius
             ]
         }
     ];

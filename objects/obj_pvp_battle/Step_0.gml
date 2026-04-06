@@ -313,6 +313,7 @@ if (estado == "proximo_player") {
 // ===== ESTADO: VITORIA =====
 if (estado == "vitoria") {
     if (estado_timer >= 200) {
+        audio_stop_all();
         var _r = variable_global_exists("pvp_original_room") ? global.pvp_original_room : Room1;
         room_goto(_r);
     }
@@ -322,6 +323,7 @@ if (estado == "vitoria") {
 // ===== ESTADO: DERROTA =====
 if (estado == "derrota") {
     if (estado_timer >= 200) {
+        audio_stop_all();
         var _r = variable_global_exists("pvp_original_room") ? global.pvp_original_room : Room1;
         room_goto(_r);
     }

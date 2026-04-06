@@ -6,7 +6,7 @@ function scr_integrons_data() {
         // ── SUBSTITUTUS ── rapido, fragil, dano alto
         {
             nome:        "Substitutus",
-            sprite:      spr_enemy2,
+            sprite:      spr_substitutus,
             hp_batalha:  60,
             dano_acerto: 20,   // dano no inimigo ao acertar
             dano_erro:   8,    // dano no jogador ao errar
@@ -63,7 +63,7 @@ function scr_integrons_data() {
         // ── PARTIUS ── equilibrado, dano medio
         {
             nome:        "Partius",
-            sprite:      spr_enemy2,
+            sprite:      spr_partius,
             hp_batalha:  90,
             dano_acerto: 15,
             dano_erro:   12,
@@ -125,7 +125,7 @@ function scr_integrons_data() {
         // ── FRACCIUS ── tanque, muito hp, dano baixo
         {
             nome:        "Fraccius",
-            sprite:      spr_enemy2,
+            sprite:      spr_fraccius,
             hp_batalha:  130,
             dano_acerto: 10,
             dano_erro:   6,

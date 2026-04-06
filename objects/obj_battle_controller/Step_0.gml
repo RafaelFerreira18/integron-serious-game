@@ -46,6 +46,14 @@ if (!inicializado) {
     estado        = "batalha";
     inicializado  = true;
     show_debug_message("[controller] Integron carregado: " + integron.nome);
+
+    // Atribui o sprite do integron ao obj_battle_enemy para aparecer no campo
+    if (instance_exists(obj_battle_enemy) && is_struct(integron) && variable_struct_exists(integron, "sprite") && sprite_exists(integron.sprite)) {
+        obj_battle_enemy.sprite_index = integron.sprite;
+        obj_battle_enemy.image_xscale = 1;
+        obj_battle_enemy.image_yscale = 1;
+    }
+
     exit;
 }
 
@@ -143,6 +151,9 @@ if (feedback_timer > 0) {
     feedback_timer--;
 
     if (feedback_timer == 0) {
+        // Para musica de batalha antes de voltar ao overworld
+        audio_stop_all();
+
         var _sw = instance_find(obj_battle_switcher, 0);
 	    show_debug_message("switcher existe: " + string(instance_exists(_sw)));
 		show_debug_message("_sw value: " + string(_sw));
