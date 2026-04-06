@@ -17,6 +17,11 @@ if (!variable_global_exists("elite_battle_cooldown")) {
     global.elite_battle_cooldown = 0;
 }
 
+// Array global de challengers derrotados
+if (!variable_global_exists("elite_derrotados")) {
+    global.elite_derrotados = [false, false, false, false];
+}
+
 // Aviso para o jogador
 aviso_texto = "";
 aviso_timer = 0;
