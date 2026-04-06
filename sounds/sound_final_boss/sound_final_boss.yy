@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"capture_battle_sound",
+  "%Name":"sound_final_boss",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -10,17 +10,17 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":60.202652,
+  "duration":129.85599,
   "exportDir":"",
-  "name":"capture_battle_sound",
+  "name":"sound_final_boss",
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Integron",
+    "path":"Integron.yyp",
   },
-  "preload":true,
+  "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"capture_battle_sound.mp3",
-  "volume":0.04,
+  "soundFile":"sound_final_boss.mp3",
+  "volume":1.0,
 }

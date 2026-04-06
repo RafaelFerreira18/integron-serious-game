@@ -1,1 +1,1 @@
-gate_for = 1; // Esta porta bloqueia acesso ao proximo apos Nox (index 1)
+gate_for = 2; // Esta porta abre ao derrotar Rex (index 2)

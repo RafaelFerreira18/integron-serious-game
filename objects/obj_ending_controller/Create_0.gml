@@ -7,6 +7,10 @@ star_y      = [];
 star_spd    = [];
 star_size   = [];
 
+// Musica da tela final
+audio_stop_all();
+audio_play_sound(sound_final_music, 1, true);
+
 // Cria particulas de estrelas
 for (var _i = 0; _i < 60; _i++) {
     array_push(star_x,   irandom(display_get_gui_width()));

@@ -21,4 +21,11 @@ if (random(100) < _encounter_chance) {
     _switcher.grass_data     = other;
     _switcher.integron       = _integron;
     _switcher.original_room  = room;
+
+    // Toca o som do integron encontrado
+    switch (_integron.nome) {
+        case "Substitutus": audio_play_sound(sound_substitutus, 1, false); break;
+        case "Partius":     audio_play_sound(sound_partius, 1, false);     break;
+        case "Fraccius":    audio_play_sound(sound_fraccius, 1, false);    break;
+    }
 }

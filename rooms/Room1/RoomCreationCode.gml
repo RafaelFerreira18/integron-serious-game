@@ -7,8 +7,8 @@ with (obj_elite_intro) { instance_destroy(); }
 
 // ===== DESTRUIR PORTAS DE CHALLENGERS DERROTADOS =====
 // Roda apos todas as instancias ja terem sido criadas.
-if (variable_global_exists("elite_derrotados")) {
-    if (global.elite_derrotados[0] && instance_exists(porta_1)) instance_destroy(porta_1);
-    if (global.elite_derrotados[1] && instance_exists(porta_2)) instance_destroy(porta_2);
-    if (global.elite_derrotados[2] && instance_exists(porta_3)) instance_destroy(porta_3);
+if (variable_global_exists("elite_defeated")) {
+    if (global.elite_defeated[0] && instance_exists(porta_1)) instance_destroy(porta_1);
+    if (global.elite_defeated[1] && instance_exists(porta_2)) instance_destroy(porta_2);
+    if (global.elite_defeated[2] && instance_exists(porta_3)) instance_destroy(porta_3);
 }

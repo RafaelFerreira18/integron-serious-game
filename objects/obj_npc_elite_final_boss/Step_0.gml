@@ -2,7 +2,7 @@
 
 bob_timer++;
 
-// Se este challenger ja foi derrotado, nao faz nada
+// Se este challenger ja foi derrotado, nao faz nada (fica parado)
 if (variable_global_exists("elite_defeated")
     && challenger_index < array_length(global.elite_defeated)
     && global.elite_defeated[challenger_index]) {
@@ -11,7 +11,7 @@ if (variable_global_exists("elite_defeated")
 
 // LOG: verifica se obj_player existe
 if (!instance_exists(obj_player)) {
-    if (bob_timer mod 60 == 0) show_debug_message("[npc_elite_1] ERRO: obj_player nao existe no room!");
+    if (bob_timer mod 60 == 0) show_debug_message("[npc_elite] ERRO: obj_player nao existe no room!");
     exit;
 }
 
@@ -19,7 +19,7 @@ var _dist_atual = point_distance(x, y, obj_player.x, obj_player.y);
 
 // LOG a cada 60 frames: distancia atual e estado
 if (bob_timer mod 60 == 0) {
-    show_debug_message("[npc_elite_1] dist=" + string(_dist_atual)
+    show_debug_message("[npc_elite] dist=" + string(_dist_atual)
         + " | interact_dist=" + string(interact_dist)
         + " | spotted=" + string(spotted)
         + " | spotted_timer=" + string(spotted_timer)
@@ -32,12 +32,19 @@ if (spotted) {
     excl_bob = sin(spotted_timer * 14 * pi / 180) * 4;
 
     if (spotted_timer == 1) {
-        show_debug_message("[npc_elite_1] SPOTTED! Iniciando contagem para batalha...");
+        show_debug_message("[npc_elite] SPOTTED! Iniciando contagem para batalha...");
+    }
+
+    // Se o timer passou muito do ponto de disparo, reseta
+    if (spotted_timer > 120) {
+        spotted       = false;
+        spotted_timer = 0;
+        exit;
     }
 
     // Apos ~70 frames (~1,15 s): dispara a batalha (executa so uma vez)
     if (spotted_timer == 70) {
-        show_debug_message("[npc_elite_1] 70 frames! Tentando criar obj_elite_intro...");
+        show_debug_message("[npc_elite] 70 frames! Tentando criar obj_elite_intro...");
 
         // Verifica se tem party E se pelo menos um integron esta vivo
         var _tem_party = variable_global_exists("player_party") && array_length(global.player_party) > 0;
@@ -66,9 +73,9 @@ if (spotted) {
             var _intro = instance_create_depth(0, 0, -9999, obj_elite_intro);
             _intro.target_room = rm_battle_integrons;
             _intro.spr_trainer = sprite_index;
-            show_debug_message("[npc_elite_1] obj_elite_intro criado! id=" + string(_intro));
+            show_debug_message("[npc_elite_boss] obj_elite_intro criado! id=" + string(_intro));
         } else {
-            show_debug_message("[npc_elite_1] obj_elite_intro ja existe, pulando criacao.");
+            show_debug_message("[npc_elite] obj_elite_intro ja existe, pulando criacao.");
         }
     }
     if (aviso_timer > 0) aviso_timer--;
@@ -87,7 +94,7 @@ if (global.elite_battle_cooldown > 0) {
 // --- Deteccao de proximidade (so uma vez, intro nao ativa) ---
 if (!instance_exists(obj_elite_intro)) {
     if (_dist_atual <= interact_dist) {
-        show_debug_message("[npc_elite_1] Jogador entrou no raio! dist=" + string(_dist_atual) + " <= " + string(interact_dist));
+        show_debug_message("[npc_elite] Jogador entrou no raio! dist=" + string(_dist_atual) + " <= " + string(interact_dist));
         spotted       = true;
         spotted_timer = 0;
     }

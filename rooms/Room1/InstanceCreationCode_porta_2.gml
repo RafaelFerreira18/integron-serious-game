@@ -1,1 +1,1 @@
-gate_for = 0; // Esta porta bloqueia acesso ao proximo apos Aria (index 0)
+gate_for = 1; // Esta porta abre ao derrotar Nox (index 1)

@@ -14,7 +14,7 @@ function scr_integrons_data() {
             // Mantido para compatibilidade com sistema de captura
             hp:          30,
             integral:    "∫ 2x dx = ?",
-            opcoes:      ["x² + C", "2x² + C", "x + C", "2 + C"],
+            opcoes:      ["x^2 + C", "2x^2 + C", "x + C", "2 + C"],
             resposta:    0,
             // Pool de questoes para batalha PvP
             questoes: [
@@ -70,7 +70,7 @@ function scr_integrons_data() {
             metodo:      "Integração por Partes",
             hp:          40,
             integral:    "∫ x·eˣ dx = ?",
-            opcoes:      ["eˣ(x-1) + C", "x·eˣ + C", "eˣ + C", "x²·eˣ + C"],
+            opcoes:      ["e^x(x-1) + C", "x*e^x + C", "e^x + C", "x^2*e^x + C"],
             resposta:    0,
             questoes: [
                 {
@@ -132,12 +132,12 @@ function scr_integrons_data() {
             metodo:      "Frações Parciais",
             hp:          50,
             integral:    "∫ 1/x dx = ?",
-            opcoes:      ["ln|x| + C", "1/x² + C", "-1/x + C", "x⁻¹ + C"],
+            opcoes:      ["ln|x| + C", "1/x^2 + C", "-1/x + C", "x^(-1) + C"],
             resposta:    0,
             questoes: [
                 {
                     enunciado: "∫ 1/x dx = ?",
-                    aceitas:   ["ln|x|+c","ln(x)+c","ln|x|+c"],
+                    aceitas:   ["ln|x|+c","ln(x)+c"],
                     passos: [
                         "Caso especial: ∫ x⁻¹ dx = ln|x| + C",
                         "A Regra da Potência NÃO vale para n = -1",

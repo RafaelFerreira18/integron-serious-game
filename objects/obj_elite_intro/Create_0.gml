@@ -5,6 +5,13 @@ if (variable_global_exists("bgm_exploring") && audio_is_playing(global.bgm_explo
     audio_stop_sound(global.bgm_exploring);
 }
 
+// Toca musica do final boss se for o AXIOM, senao toca musica da elite four
+if (variable_global_exists("pvp_challenger_index") && global.pvp_challenger_index == 3) {
+    audio_play_sound(sound_final_boss, 1, true);
+} else {
+    audio_play_sound(sound_elite_four_battle, 1, true);
+}
+
 phase = 0;
 timer = 0;
 
@@ -14,7 +21,7 @@ gui_h = 720;
 cx    = gui_w * 0.5;
 cy    = gui_h * 0.5;
 
-// Sprite de teste — usa o mesmo sprite do obj_npc_elite
+// Sprite do NPC — sera sobrescrito pelo NPC que criou esta instancia (_intro.spr_trainer = sprite_index)
 spr_trainer = spr_npc1;
 
 // --- Fase 0: slide da direita ---

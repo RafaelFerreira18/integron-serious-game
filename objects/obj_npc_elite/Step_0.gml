@@ -3,9 +3,9 @@
 bob_timer++;
 
 // Se este challenger ja foi derrotado, nao faz nada (fica parado)
-if (variable_global_exists("elite_derrotados")
-    && challenger_index < array_length(global.elite_derrotados)
-    && global.elite_derrotados[challenger_index]) {
+if (variable_global_exists("elite_defeated")
+    && challenger_index < array_length(global.elite_defeated)
+    && global.elite_defeated[challenger_index]) {
     exit;
 }
 
@@ -72,6 +72,7 @@ if (spotted) {
             global.pvp_original_room    = room;
             var _intro = instance_create_depth(0, 0, -9999, obj_elite_intro);
             _intro.target_room = rm_battle_integrons;
+            _intro.spr_trainer = sprite_index;
             show_debug_message("[npc_elite] obj_elite_intro criado! id=" + string(_intro));
         } else {
             show_debug_message("[npc_elite] obj_elite_intro ja existe, pulando criacao.");

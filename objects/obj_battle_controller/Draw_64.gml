@@ -196,7 +196,9 @@ if (overlay_ativo) {
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
     draw_set_font(-1);
-    draw_text(_cx,  _gh * 0.3333333, "Capture " + _nome_integron + "!");
+    if (feedback_timer <= 0) {
+        draw_text(_cx,  _gh * 0.3333333, "Capture " + _nome_integron + "!");
+    }
     draw_text(_cx, _gh * 0.375, integron.integral);
 
     var _larg = 400;

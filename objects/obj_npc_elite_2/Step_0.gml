@@ -2,6 +2,13 @@
 
 bob_timer++;
 
+// Se este challenger ja foi derrotado, nao faz nada
+if (variable_global_exists("elite_defeated")
+    && challenger_index < array_length(global.elite_defeated)
+    && global.elite_defeated[challenger_index]) {
+    exit;
+}
+
 // LOG: verifica se obj_player existe
 if (!instance_exists(obj_player)) {
     if (bob_timer mod 60 == 0) show_debug_message("[npc_elite_2] ERRO: obj_player nao existe no room!");
@@ -58,6 +65,7 @@ if (spotted) {
             global.pvp_original_room    = room;
             var _intro = instance_create_depth(0, 0, -9999, obj_elite_intro);
             _intro.target_room = rm_battle_integrons;
+            _intro.spr_trainer = sprite_index;
             show_debug_message("[npc_elite_2] obj_elite_intro criado! id=" + string(_intro));
         } else {
             show_debug_message("[npc_elite_2] obj_elite_intro ja existe, pulando criacao.");
