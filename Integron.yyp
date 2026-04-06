@@ -60,6 +60,7 @@
     {"id":{"name":"obj_grass_4","path":"objects/obj_grass_4/obj_grass_4.yy",},},
     {"id":{"name":"obj_grass_5","path":"objects/obj_grass_5/obj_grass_5.yy",},},
     {"id":{"name":"obj_grass_parent","path":"objects/obj_grass_parent/obj_grass_parent.yy",},},
+    {"id":{"name":"obj_integron_center","path":"objects/obj_integron_center/obj_integron_center.yy",},},
     {"id":{"name":"obj_leave_battle","path":"objects/obj_leave_battle/obj_leave_battle.yy",},},
     {"id":{"name":"obj_npc_elite_1","path":"objects/obj_npc_elite_1/obj_npc_elite_1.yy",},},
     {"id":{"name":"obj_npc_elite_2","path":"objects/obj_npc_elite_2/obj_npc_elite_2.yy",},},

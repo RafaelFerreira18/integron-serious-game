@@ -25,6 +25,9 @@ for (var _ci = 0; _ci < array_length(_todos_c); _ci++) {
     }
 }
 player_integron = scr_pvp_clone_integron(_base_c);
+// Usa HP salvo da party (pode ter tomado dano em batalha anterior)
+var _hp_salvo = variable_struct_exists(_primeiro, "hp_atual") ? _primeiro.hp_atual : _base_c.hp_batalha;
+player_integron.hp_atual = max(0, _hp_salvo);
 
 // Integron ativo do inimigo
 enemy_integron   = challenger.party[challenger_party_index];
@@ -86,3 +89,4 @@ ensino_total_passos   = 0;
 ensino_chars_visiveis = 0;
 ensino_retry_prompt   = false;
 ensino_retry_ativo    = false;
+ensino_ja_visto       = false;  // true apos o scroll ser exibido uma vez por questao

@@ -31,11 +31,31 @@ if (spotted) {
     // Apos ~70 frames (~1,15 s): dispara a batalha (executa so uma vez)
     if (spotted_timer == 70) {
         show_debug_message("[npc_elite] 70 frames! Tentando criar obj_elite_intro...");
-        show_debug_message("  intro_existe=" + string(instance_exists(obj_elite_intro)));
-        show_debug_message("  rm_battle_integrons=" + string(rm_battle_integrons));
-        global.pvp_challenger_index = challenger_index;
-        global.pvp_original_room    = room;
-        if (!instance_exists(obj_elite_intro)) {
+
+        // Verifica se tem party E se pelo menos um integron esta vivo
+        var _tem_party = variable_global_exists("player_party") && array_length(global.player_party) > 0;
+        var _tem_vivo  = false;
+        if (_tem_party) {
+            for (var _i = 0; _i < array_length(global.player_party); _i++) {
+                var _p  = global.player_party[_i];
+                var _hp = variable_struct_exists(_p, "hp_atual") ? _p.hp_atual : 1;
+                if (_hp > 0) { _tem_vivo = true; break; }
+            }
+        }
+
+        if (!_tem_party) {
+            aviso_texto = "Capture um Integron primeiro!";
+            aviso_timer = 210;
+            spotted = false;
+            spotted_timer = 0;
+        } else if (!_tem_vivo) {
+            aviso_texto = "Seus Integrons estao sem HP! Va ao Integron Center.";
+            aviso_timer = 210;
+            spotted = false;
+            spotted_timer = 0;
+        } else if (!instance_exists(obj_elite_intro)) {
+            global.pvp_challenger_index = challenger_index;
+            global.pvp_original_room    = room;
             var _intro = instance_create_depth(0, 0, -9999, obj_elite_intro);
             _intro.target_room = rm_battle_integrons;
             show_debug_message("[npc_elite] obj_elite_intro criado! id=" + string(_intro));

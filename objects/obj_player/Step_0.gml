@@ -14,14 +14,54 @@ if (smash_quiz_ativo || smash_feedback_timer > 0) {
     _ver = 0;
 }
 
+// Bloqueia movimento quando o overlay do Integron Center estiver aberto
+if (instance_exists(obj_integron_center) && obj_integron_center.overlay_ativo) {
+    _hor = 0;
+    _ver = 0;
+}
+
 var _mov_x = _hor * move_speed;
 var _mov_y = _ver * move_speed;
 
 // Bloqueia passagem por obstaculos de smash enquanto nao forem destruidos.
-if (_mov_x != 0 && (place_meeting(x + _mov_x, y, Object16) || place_meeting(x + _mov_x, y, D_Baril) || place_meeting(x + _mov_x, y, obj_npc_elite))) {
+var _col_x = place_meeting(x + _mov_x, y, Object16)
+          || place_meeting(x + _mov_x, y, D_Baril)
+          || place_meeting(x + _mov_x, y, D_Cart)
+          || place_meeting(x + _mov_x, y, D_Box)
+          || place_meeting(x + _mov_x, y, D_Anvil)
+          || place_meeting(x + _mov_x, y, D_Anvil_2)
+          || place_meeting(x + _mov_x, y, D_light)
+          || place_meeting(x + _mov_x, y, D_sword)
+          || place_meeting(x + _mov_x, y, D_Tug_Axe)
+          || place_meeting(x + _mov_x, y, D_Well)
+          || place_meeting(x + _mov_x, y, D_Well_1)
+          || place_meeting(x + _mov_x, y, D_Well_2D_Well_2)
+          || place_meeting(x + _mov_x, y, D_Well_2D_Well_3)
+          || place_meeting(x + _mov_x, y, D_Well_2D_Well_4)
+          || place_meeting(x + _mov_x, y, D_Bear)
+          || place_meeting(x + _mov_x, y, obj_npc_elite)
+          || place_meeting(x + _mov_x, y, obj_integron_center);
+var _col_y = place_meeting(x, y + _mov_y, Object16)
+          || place_meeting(x, y + _mov_y, D_Baril)
+          || place_meeting(x, y + _mov_y, D_Cart)
+          || place_meeting(x, y + _mov_y, D_Box)
+          || place_meeting(x, y + _mov_y, D_Anvil)
+          || place_meeting(x, y + _mov_y, D_Anvil_2)
+          || place_meeting(x, y + _mov_y, D_light)
+          || place_meeting(x, y + _mov_y, D_sword)
+          || place_meeting(x, y + _mov_y, D_Tug_Axe)
+          || place_meeting(x, y + _mov_y, D_Well)
+          || place_meeting(x, y + _mov_y, D_Well_1)
+          || place_meeting(x, y + _mov_y, D_Well_2D_Well_2)
+          || place_meeting(x, y + _mov_y, D_Well_2D_Well_3)
+          || place_meeting(x, y + _mov_y, D_Well_2D_Well_4)
+          || place_meeting(x, y + _mov_y, D_Bear)
+          || place_meeting(x, y + _mov_y, obj_npc_elite)
+          || place_meeting(x, y + _mov_y, obj_integron_center);
+if (_mov_x != 0 && _col_x) {
     _mov_x = 0;
 }
-if (_mov_y != 0 && (place_meeting(x, y + _mov_y, Object16) || place_meeting(x, y + _mov_y, D_Baril) || place_meeting(x, y + _mov_y, obj_npc_elite))) {
+if (_mov_y != 0 && _col_y) {
     _mov_y = 0;
 }
 

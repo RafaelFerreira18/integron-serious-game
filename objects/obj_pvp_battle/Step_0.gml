@@ -142,8 +142,9 @@ if (estado == "mostrando_feedback") {
                 estado = "turno_inimigo";
             }
         } else {
-            // Errou: abre o scroll de ensino
-            if (variable_struct_exists(questao_atual, "passos") && array_length(questao_atual.passos) > 0) {
+            // Errou: abre o scroll apenas se ainda nao foi visto nesta questao
+            if (!ensino_ja_visto && variable_struct_exists(questao_atual, "passos") && array_length(questao_atual.passos) > 0) {
+                ensino_ja_visto       = true;
                 ensino_passos         = questao_atual.passos;
                 ensino_passo_idx      = 0;
                 ensino_total_passos   = array_length(ensino_passos);
@@ -232,6 +233,8 @@ if (estado == "turno_inimigo") {
     if (estado_timer >= 90 && feedback_timer <= 0) {
         feedback_texto = "";
         if (player_integron.hp_atual <= 0) {
+            // Salva HP 0 na party para o integron que morreu
+            global.player_party[player_party_index].hp_atual = 0;
             player_derrotado = true;
             estado           = "proximo_player";
         } else {
@@ -295,6 +298,9 @@ if (estado == "proximo_player") {
             }
         }
         player_integron = scr_pvp_clone_integron(_base2);
+        // Usa HP salvo da party
+        var _hp_prox = variable_struct_exists(_proximo, "hp_atual") ? _proximo.hp_atual : _base2.hp_batalha;
+        player_integron.hp_atual = max(1, _hp_prox); // ao menos 1 para nao morrer imediatamente
         with (obj_user_integron) {
             nome         = other.player_integron.nome;
             hp_total     = other.player_integron.hp_batalha;
@@ -312,6 +318,10 @@ if (estado == "proximo_player") {
 
 // ===== ESTADO: VITORIA =====
 if (estado == "vitoria") {
+    if (estado_timer == 1) {
+        // Salva HP atual do integron ativo na party
+        global.player_party[player_party_index].hp_atual = max(0, player_integron.hp_atual);
+    }
     if (estado_timer >= 200) {
         audio_stop_all();
         var _r = variable_global_exists("pvp_original_room") ? global.pvp_original_room : Room1;
@@ -322,6 +332,10 @@ if (estado == "vitoria") {
 
 // ===== ESTADO: DERROTA =====
 if (estado == "derrota") {
+    if (estado_timer == 1) {
+        // Ultima escritada: integron ativo ja tem 0 de HP (morreu em proximo_player)
+        global.player_party[player_party_index].hp_atual = 0;
+    }
     if (estado_timer >= 200) {
         audio_stop_all();
         var _r = variable_global_exists("pvp_original_room") ? global.pvp_original_room : Room1;
