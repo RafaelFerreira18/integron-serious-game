@@ -206,6 +206,7 @@ if (smash_quiz_ativo) {
                     }
                     smash_feedback_texto = "SMASSSHHHH!!! Obstaculo destruido!";
                     smash_feedback_estado = "acertou";
+                    audio_play_sound(sound_smash, 1, false);
                 } else {
                     smash_feedback_texto = "Errou a integral! O obstaculo nao quebrou.";
                     smash_feedback_estado = "errou";

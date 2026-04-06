@@ -357,11 +357,24 @@ if (estado == "vitoria") {
     if (estado_timer == 1) {
         // Salva HP atual do integron ativo na party
         global.player_party[player_party_index].hp_atual = max(0, player_integron.hp_atual);
+
+        // Marca o challenger como derrotado para abrir portas
+        if (!variable_global_exists("elite_defeated")) {
+            global.elite_defeated = [false, false, false, false];
+        }
+        if (variable_global_exists("pvp_challenger_index")) {
+            global.elite_defeated[global.pvp_challenger_index] = true;
+        }
     }
     if (estado_timer >= 200) {
         audio_stop_all();
-        var _r = variable_global_exists("pvp_original_room") ? global.pvp_original_room : Room1;
-        room_goto(_r);
+        // Se derrotou o boss final (AXIOM, index 3), vai para tela de encerramento
+        if (variable_global_exists("pvp_challenger_index") && global.pvp_challenger_index == 3) {
+            room_goto(rm_ending);
+        } else {
+            var _r = variable_global_exists("pvp_original_room") ? global.pvp_original_room : Room1;
+            room_goto(_r);
+        }
     }
     exit;
 }

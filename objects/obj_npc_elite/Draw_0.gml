@@ -3,12 +3,12 @@
 // Ofset de balanco idle
 var _bob = sin(bob_timer * 3 * pi / 180) * 1;
 
-// Sprite do NPC (spr_npc1 ja existe no projeto)
-draw_sprite_ext(spr_npc1, 0, x, y + _bob, 1, 1, 0, c_white, 1);
+// Sprite do NPC
+draw_sprite_ext(sprite_index, 0, x, y + _bob, 1, 1, 0, c_white, 1);
 
 // Caixa "!" de avistamento (aparece antes de disparar a batalha)
 if (spotted && spotted_timer < 70) {
-    var _spr_h = sprite_get_height(spr_npc1);
+    var _spr_h = sprite_get_height(sprite_index);
     var _ex    = x;
     var _ey    = y - _spr_h - 6 + excl_bob + _bob;
     var _hw    = 9;

@@ -8,7 +8,7 @@ function scr_integrons_data() {
             nome:        "Substitutus",
             sprite:      spr_substitutus,
             hp_batalha:  60,
-            dano_acerto: 20,   // dano no inimigo ao acertar
+            dano_acerto: 50,   // dano no inimigo ao acertar
             dano_erro:   8,    // dano no jogador ao errar
             metodo:      "Substituição Simples",
             // Mantido para compatibilidade com sistema de captura
@@ -65,7 +65,7 @@ function scr_integrons_data() {
             nome:        "Partius",
             sprite:      spr_partius,
             hp_batalha:  90,
-            dano_acerto: 15,
+            dano_acerto: 50,
             dano_erro:   12,
             metodo:      "Integração por Partes",
             hp:          40,
@@ -127,7 +127,7 @@ function scr_integrons_data() {
             nome:        "Fraccius",
             sprite:      spr_fraccius,
             hp_batalha:  130,
-            dano_acerto: 10,
+            dano_acerto: 50,
             dano_erro:   6,
             metodo:      "Frações Parciais",
             hp:          50,

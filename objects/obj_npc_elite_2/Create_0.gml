@@ -1,5 +1,5 @@
 /// @description NPC desafiante da Elite Four.
-challenger_index = 0;   // 0 = Aria (primeiro challenger)
+challenger_index = 2;   // 2 = Rex
 prompt_ativo     = false;
 interact_dist    = 48;   // distancia em pixels para disparar o avistamento
 interact_tecla   = ord("E");
