@@ -365,14 +365,19 @@ if (estado == "vitoria") {
         if (variable_global_exists("pvp_challenger_index")) {
             global.elite_defeated[global.pvp_challenger_index] = true;
         }
+        show_debug_message("[pvp] VITORIA! Challenger " + string(global.pvp_challenger_index) + " derrotado.");
     }
-    if (estado_timer >= 200) {
+    if (estado_timer >= 200 && !variable_instance_exists(self, "goto_disparado")) {
+        goto_disparado = true;
         audio_stop_all();
+        // Imunidade pos-batalha: impede qualquer NPC de engajar
+        global.elite_battle_cooldown = 300;
         // Se derrotou o boss final (AXIOM, index 3), vai para tela de encerramento
         if (variable_global_exists("pvp_challenger_index") && global.pvp_challenger_index == 3) {
             room_goto(rm_ending);
         } else {
             var _r = variable_global_exists("pvp_original_room") ? global.pvp_original_room : Room1;
+            show_debug_message("[pvp] room_goto disparado! destino=" + string(_r));
             room_goto(_r);
         }
     }
@@ -385,10 +390,13 @@ if (estado == "derrota") {
         // Ultima escritada: integron ativo ja tem 0 de HP (morreu em proximo_player)
         global.player_party[player_party_index].hp_atual = 0;
     }
-    if (estado_timer >= 200) {
+    if (estado_timer >= 200 && !variable_instance_exists(self, "goto_disparado")) {
+        goto_disparado = true;
         audio_stop_all();
-        var _r = variable_global_exists("pvp_original_room") ? global.pvp_original_room : Room1;
-        room_goto(_r);
+        // Imunidade pos-batalha
+        global.elite_battle_cooldown = 300;
+        show_debug_message("[pvp] room_goto(Room1) disparado! (derrota)");
+        room_goto(Room1);
     }
     exit;
 }

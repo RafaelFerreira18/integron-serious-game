@@ -10,6 +10,14 @@ if (!variable_global_exists("player_party_max")) {
 	global.player_party_max = 4;
 }
 
+// ===== SISTEMA DE PORTAS DA ELITE FOUR =====
+// Inicializa array de challengers derrotados se nao existir.
+if (!variable_global_exists("elite_derrotados")) {
+	global.elite_derrotados = [false, false, false, false];
+}
+// A destruicao das portas e feita no Room Creation Code de Room1
+// (precisa rodar APOS todos os instances serem criados).
+
 party_overlay_ativo = false;
 party_overlay_tecla = ord("P");
 

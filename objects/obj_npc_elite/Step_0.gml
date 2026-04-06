@@ -2,6 +2,13 @@
 
 bob_timer++;
 
+// Se este challenger ja foi derrotado, nao faz nada (fica parado)
+if (variable_global_exists("elite_derrotados")
+    && challenger_index < array_length(global.elite_derrotados)
+    && global.elite_derrotados[challenger_index]) {
+    exit;
+}
+
 // LOG: verifica se obj_player existe
 if (!instance_exists(obj_player)) {
     if (bob_timer mod 60 == 0) show_debug_message("[npc_elite] ERRO: obj_player nao existe no room!");
@@ -26,6 +33,13 @@ if (spotted) {
 
     if (spotted_timer == 1) {
         show_debug_message("[npc_elite] SPOTTED! Iniciando contagem para batalha...");
+    }
+
+    // Se o timer passou muito do ponto de disparo, reseta
+    if (spotted_timer > 120) {
+        spotted       = false;
+        spotted_timer = 0;
+        exit;
     }
 
     // Apos ~70 frames (~1,15 s): dispara a batalha (executa so uma vez)
@@ -67,9 +81,13 @@ if (spotted) {
     exit;
 }
 
-// --- Cooldown apos sair de batalha ---
+// --- Cooldown apos sair de batalha (so o NPC de menor id decrementa) ---
 if (global.elite_battle_cooldown > 0) {
-    global.elite_battle_cooldown--;
+    // Evita que multiplos NPCs decrementem o mesmo cooldown global
+    var _primeiro_npc = instance_find(obj_npc_elite, 0);
+    if (id == _primeiro_npc) {
+        global.elite_battle_cooldown--;
+    }
     spotted       = false;
     spotted_timer = 0;
     if (aviso_timer > 0) aviso_timer--;

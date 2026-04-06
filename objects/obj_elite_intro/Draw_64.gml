@@ -175,9 +175,12 @@ switch (phase) {
     // FASE 5 — Animação concluída: inicia a batalha
     // ────────────────────────────────────────────────────────────────────────
     case 5:
-        if (timer <= 3) {
+        if (timer == 1) {
             show_debug_message("[elite_intro] FASE 5 - chamando room_goto para " + string(target_room));
             room_goto(target_room);
+        }
+        if (timer >= 2) {
+            instance_destroy();
         }
         break;
 }
